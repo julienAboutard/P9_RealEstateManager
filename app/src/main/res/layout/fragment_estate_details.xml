@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/estate_details_progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/estate_details_media_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="6dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Media"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/estate_details_media_rv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/estate_details_media_tv"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"/>
+
+        <View
+            android:id="@+id/horizontal_divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginTop="12dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/estate_details_media_rv" />
+
+        <TextView
+            android:id="@+id/estate_details_type_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="14dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/estate_details_price_tv"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_divider1"
+            tools:text="Villa" />
+
+        <TextView
+            android:id="@+id/estate_details_price_tv"
+            android:layout_width="0dp"
+            android:layout_marginTop="14dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_marginEnd="12dp"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/estate_details_type_tv"
+            app:layout_constraintTop_toBottomOf="@+id/horizontal_divider1"
+            tools:text="$50000000" />
+
+        <TextView
+            android:id="@+id/estate_details_location_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:drawablePadding="8dp"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:paddingStart="4dp"
+            android:paddingEnd="12dp"
+            app:drawableStartCompat="@drawable/baseline_location_on_24"
+            app:drawableTint="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/estate_details_entry_date_tv"
+            app:layout_constraintTop_toBottomOf="@+id/estate_details_type_tv"
+            tools:text="12D voie OSman Nadeau, 97200 Fort-De-France, Martinique" />
+
+        <TextView
+            android:id="@+id/estate_details_sold_date_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:gravity="end"
+            app:layout_constraintTop_toBottomOf="@id/estate_details_price_tv"
+            app:layout_constraintBottom_toTopOf="@id/estate_details_entry_date_tv"
+            app:layout_constraintEnd_toEndOf="@+id/estate_details_entry_date_tv"
+            app:layout_constraintStart_toStartOf="@+id/estate_details_entry_date_tv"
+            tools:text="Sold date: 01/01/2020"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/estate_details_entry_date_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="@id/estate_details_price_tv"
+            app:layout_constraintStart_toEndOf="@id/estate_details_location_tv"
+            app:layout_constraintTop_toBottomOf="@+id/estate_details_type_tv"
+            tools:text="Entry date: 01/01/2020" />
+
+        <TextView
+            android:id="@+id/estate_details_agent_name_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="@id/estate_details_entry_date_tv"
+            app:layout_constraintStart_toStartOf="@+id/estate_details_entry_date_tv"
+            app:layout_constraintTop_toBottomOf="@id/estate_details_entry_date_tv"
+            tools:text="Managed by John Doe" />
+
+        <TextView
+            android:id="@+id/estate_details_description_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:maxLines="10"
+            android:ellipsize="end"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/estate_details_location_tv"
+            tools:text="A beautiful villa with a pool and a garden. The house is located in a quiet neighborhood. Lucrative investment." />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/estate_details_carac_flexbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            app:alignItems="center"
+            app:flexDirection="row"
+            app:flexWrap="wrap"
+            app:justifyContent="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/estate_details_description_tv">
+
+            <TextView
+                android:id="@+id/estate_details_surface_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                tools:text="1500 sq ft"
+                app:layout_flexGrow="1"
+                app:drawableStartCompat="@drawable/baseline_surface_24" />
+
+            <TextView
+                android:id="@+id/estate_details_room_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                app:drawableStartCompat="@drawable/baseline_room_plan_24"
+                tools:text="5 rooms" />
+
+            <TextView
+                android:id="@+id/estate_details_bedroom_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                app:drawableStartCompat="@drawable/baseline_bed_24"
+                tools:text="3 bedrooms" />
+
+            <TextView
+                android:id="@+id/estate_details_bathroom_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                android:maxLines="2"
+                app:drawableStartCompat="@drawable/baseline_bathtub_24"
+                tools:text="2 bathrooms" />
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <View
+            android:id="@+id/horizontal_divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginTop="12dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/estate_details_carac_flexbox" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
