@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.realestatemanager.R;
-import com.example.realestatemanager.utils.Utils;
+import com.example.realestatemanager.ui.utils.Utils;
 
 public class Activity extends AppCompatActivity {
 

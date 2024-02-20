@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:fillViewport="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/estate_add_date_creation_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:maxLines="2"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="@+id/estate_add_sold_status_switch"
+            app:layout_constraintEnd_toStartOf="@id/estate_add_sold_status_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Estate creation date: 12/12/2022" />
+
+        <TextView
+            android:id="@+id/estate_add_sold_status_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/estate_add_date_creation_tv"
+            app:layout_constraintEnd_toStartOf="@id/estate_add_sold_status_switch"
+            app:layout_constraintTop_toTopOf="@id/estate_add_date_creation_tv"
+            tools:text="Sold"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/estate_add_sold_status_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/estate_add_sold_status_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/estate_add_sold_status_tv"
+            tools:checked="true" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/estate_add_type_textInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="8dp"
+            app:endIconMode="dropdown_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/estate_add_date_creation_tv">
+
+            <AutoCompleteTextView
+                android:id="@+id/estate_add_type_actv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                tools:hint="Select a Type"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/estate_add_address_textInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="@+id/estate_add_type_textInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/estate_add_type_textInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/estate_add_type_textInputLayout"
+            app:startIconDrawable="@drawable/baseline_location_on_24"
+            tools:helperText="Please select an address from suggestions">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/estate_add_address_textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="text|textCapSentences"
+                android:maxLines="2"
+                android:padding="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/form_address_predictions_recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/estate_add_address_textInputLayout"
+            app:layout_constraintStart_toStartOf="@id/estate_add_address_textInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/estate_add_address_textInputLayout"
+            tools:itemCount="6"
+            tools:listitem="@layout/property_address_prediction_item"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/estate_add_address_is_valid_helper_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            app:drawableStartCompat="@drawable/baseline_check_circle_24"
+            app:layout_constraintBottom_toTopOf="@+id/estate_add_address_textInputLayout"
+            app:layout_constraintEnd_toEndOf="@id/estate_add_address_textInputLayout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/estate_add_price_textInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:endIconMode="clear_text"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toStartOf="@id/estate_add_surface_textInputLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/estate_add_address_textInputLayout"
+            tools:hint="Price in €">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/estate_add_price_textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:lines="1"
+                android:padding="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/estate_add_surface_textInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:endIconMode="clear_text"
+            app:layout_constraintBottom_toBottomOf="@+id/estate_add_price_textInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/estate_add_price_textInputLayout"
+            app:layout_constraintTop_toTopOf="@+id/estate_add_price_textInputLayout"
+            tools:hint="Surface in m²">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/estate_add_surface_textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:lines="1"
+                android:padding="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/estate_add_room_textInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:endIconMode="clear_text"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintTop_toBottomOf="@id/estate_add_price_textInputLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/estate_add_bedroom_textInputLayout"
+            tools:hint="Rooms">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/estate_add_room_textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:lines="1"
+                android:padding="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/estate_add_bedroom_textInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:endIconMode="clear_text"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintTop_toTopOf="@id/estate_add_room_textInputLayout"
+            app:layout_constraintStart_toEndOf="@id/estate_add_room_textInputLayout"
+            app:layout_constraintEnd_toStartOf="@id/estate_add_bathroom_textInputLayout"
+            tools:hint="Bedrooms">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/estate_add_bedroom_textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:lines="1"
+                android:padding="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/estate_add_bathroom_textInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:endIconMode="clear_text"
+            app:layout_constraintTop_toTopOf="@id/estate_add_room_textInputLayout"
+            app:layout_constraintStart_toEndOf="@id/estate_add_bedroom_textInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:hint="Bathrooms">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/estate_add_bathroom_textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:lines="1"
+                android:padding="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/estate_add_description_textInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:endIconMode="clear_text"
+            app:expandedHintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/estate_add_room_textInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/estate_add_description_textInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top|start"
+                android:imeOptions="actionDone"
+                android:inputType="textMultiLine|textCapSentences"
+                android:lines="5"
+                android:maxLines="5" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/estate_add_amenities_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/estate_add_description_textInputLayout"
+            tools:text="Amenities"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/estate_add_amenities_recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:flexDirection="row"
+            app:justifyContent="center"
+            app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/estate_add_amenities_tv"
+            tools:itemCount="9"
+            tools:listitem="@layout/amenity_checkbox_item" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/estate_add_agent_textInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="16dp"
+            app:endIconMode="dropdown_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/estate_add_amenities_recyclerView">
+
+            <AutoCompleteTextView
+                android:id="@+id/estate_add_agent_actv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                tools:hint="Select an Agent"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/estate_add_media_from_storage_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:icon="@drawable/baseline_upload_file_24"
+            app:layout_constraintEnd_toStartOf="@id/estate_from_camera_button"
+            app:layout_constraintStart_toStartOf="@+id/estate_add_agent_textInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/estate_add_agent_textInputLayout"
+            tools:text="Import Media"/>
+
+        <Button
+            android:id="@+id/estate_from_camera_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/baseline_camera_24"
+            app:layout_constraintEnd_toEndOf="@+id/estate_add_agent_textInputLayout"
+            app:layout_constraintStart_toEndOf="@id/estate_add_media_from_storage_button"
+            app:layout_constraintTop_toTopOf="@id/estate_add_media_from_storage_button"
+            tools:text="Take From Camera"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/estate_preview_media_recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:flexDirection="row"
+            app:justifyContent="center"
+            app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/estate_add_media_from_storage_button"
+            tools:itemCount="5"
+            tools:listitem="@layout/property_preview_picture_item" />
+
+        <Button
+            android:id="@+id/form_submit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            app:icon="@drawable/baseline_add_home_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/estate_preview_media_recyclerView"
+            tools:enabled="true"
+            tools:text="Add Estate" />
+
+        <ProgressBar
+            android:id="@+id/form_progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/form_submit_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/form_submit_button"
+            app:layout_constraintTop_toTopOf="@id/form_submit_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

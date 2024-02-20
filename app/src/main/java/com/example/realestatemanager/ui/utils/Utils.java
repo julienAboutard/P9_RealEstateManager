@@ -1,4 +1,4 @@
-package com.example.realestatemanager.utils;
+package com.example.realestatemanager.ui.utils;
 
 import static androidx.core.content.ContextCompat.getSystemService;
 

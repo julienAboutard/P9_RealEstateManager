@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">Real Estate Manager</string>
+    <string name="app_name" translatable="false">Real Estate Manager</string>
+
+    <string name="amenity_school">School</string>
+    <string name="amenity_park">Park</string>
+    <string name="amenity_shopping_mall">Mall</string>
+    <string name="amenity_restaurant">Restaurant</string>
+    <string name="amenity_public_transportation">Transportation</string>
+    <string name="amenity_hospital">Hospital</string>
+
+    <string name="type_house">House</string>
+    <string name="type_flat">Flat</string>
+    <string name="type_duplex" translatable="false">Duplex</string>
+    <string name="type_penthouse" translatable="false">Penthouse</string>
+    <string name="type_villa" translatable="false">Villa</string>
+    <string name="type_manor">Manor</string>
+    <string name="type_other">Other</string>
+    <string name="type_all">All</string>
 </resources>
