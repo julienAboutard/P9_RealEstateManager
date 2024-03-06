@@ -1,10 +1,12 @@
 package com.example.realestatemanager.data.media.entity
 
 import androidx.room.ColumnInfo
+import androidx.room.Entity
 
 data class MediaEntity(
+    val id: Long,
     val uri: String,
-    val description: String?,
+    var description: String?,
     val type : String,
-    val isFeatured: Boolean
+    var isFeatured: Boolean
 )

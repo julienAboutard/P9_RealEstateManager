@@ -22,7 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/featured_img_cd"
             tools:src="@tools:sample/avatars"/>
 
         <androidx.constraintlayout.widget.Guideline
@@ -39,7 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/banner_cd"
             android:scaleType="centerCrop"
             android:src="@drawable/corner_banner"
             android:visibility="gone"
@@ -56,6 +56,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="18dp"
             android:rotation="-45"
+            android:text="@string/estate_item_sold"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:visibility="gone"
@@ -92,6 +93,20 @@
             app:layout_constraintTop_toTopOf="@+id/estate_item_type_tv"
             tools:text="$22,255,000" />
 
+        <TextView
+            android:id="@+id/estate_item_location_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:textSize="16sp"
+            android:maxLines="2"
+            app:layout_constraintTop_toBottomOf="@id/estate_item_type_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="12D voie Osman Nadeau Ravine-vilaine 31000 Toulouse"
+            app:drawableStartCompat="@drawable/baseline_location_on_24" />
+
         <View
             android:id="@+id/horizontal_divider"
             android:layout_width="match_parent"
@@ -102,7 +117,7 @@
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/estate_item_type_tv"/>
+            app:layout_constraintTop_toBottomOf="@id/estate_item_location_tv"/>
 
         <TextView
             android:id="@+id/estate_item_surface_tv"

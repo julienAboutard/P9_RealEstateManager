@@ -6,7 +6,7 @@ import javax.inject.Inject
 class ResetCurrentEstateIdUseCase @Inject constructor(
     private val currentEstateRepository: CurrentEstateRepository,
 ) {
-    fun invoke(id: Long) {
+    fun invoke() {
         currentEstateRepository.resetCurrentEstateId()
     }
 }

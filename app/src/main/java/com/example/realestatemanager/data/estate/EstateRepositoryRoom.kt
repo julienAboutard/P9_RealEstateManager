@@ -1,6 +1,7 @@
 package com.example.realestatemanager.data.estate
 
 import android.database.sqlite.SQLiteException
+import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.realestatemanager.data.estate.entity.EstateEntity
 import com.example.realestatemanager.data.estate.room.EstateDao
 import com.example.realestatemanager.data.media.MediaMapper
@@ -31,16 +32,18 @@ class EstateRepositoryRoom @Inject constructor(
     }
 
     override suspend fun addEstateWithDetails(estateEntity: EstateEntity): Boolean = withContext(coroutineDispatcherProvider.io) {
-        val estateId = add(estateEntity) ?: return@withContext false
 
-        val mediasDeferred = estateEntity.medias.map {
-            async {
-                val mediaDtoEntity = mediaMapper.mapToDtoEntity(it, estateId)
-                mediaDao.insert(mediaDtoEntity)
+        try {
+            val estateId = add(estateEntity) ?: return@withContext false
+
+            estateEntity.medias.map {
+                mediaDao.insert(mediaMapper.mapToDtoEntity(it, estateId))
             }
+            true
+        } catch (e: SQLiteException) {
+            e.printStackTrace()
+            false
         }
-
-        mediasDeferred.all { true }
     }
 
     override fun getEstatesAsFlow(): Flow<List<EstateEntity>> = estateDao
@@ -60,7 +63,7 @@ class EstateRepositoryRoom @Inject constructor(
     override fun getEstateByIdAsFlow(estateId: Long): Flow<EstateEntity?> = estateDao
         .getEstateByIdAsFlow(estateId)
         .map {
-            it?.let { estateWithDetails ->
+            it.let { estateWithDetails ->
                 estateMapper.mapToDomainEntity(
                     estateWithDetails.estate,
                     estateWithDetails.medias

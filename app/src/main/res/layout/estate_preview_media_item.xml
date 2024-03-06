@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:padding="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/media_preview_iv"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            app:contentDescription="@string/featured_img_cd"
+            app:layout_constraintEnd_toStartOf="@id/media_preview_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars"/>
+
+        <ImageView
+            android:id="@+id/media_type_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="4dp"
+            android:contentDescription="@string/type_media_cd"
+            app:layout_constraintStart_toStartOf="@id/media_preview_iv"
+            app:layout_constraintTop_toTopOf="@id/media_preview_iv"
+            tools:src="@drawable/outline_photo_camera_24"
+            android:background="@drawable/media_type_round_background"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/media_preview_title_til"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/media_preview_iv">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/media_preview_title_tiet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:imeOptions="actionDone"
+                android:hint="@string/media_title_hint"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLength="28"
+                android:maxLines="2" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:id="@+id/media_preview_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/media_preview_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/media_preview_iv"
+            app:layout_constraintTop_toTopOf="@+id/media_preview_iv" />
+
+
+        <ImageView
+            android:id="@+id/media_preview_delete_iv"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="12dp"
+            android:clickable="true"
+            android:contentDescription="@string/delete_btn_cd"
+            android:focusable="true"
+            android:src="@drawable/baseline_delete_24"
+            app:layout_constraintBottom_toBottomOf="@+id/media_preview_view"
+            app:layout_constraintEnd_toEndOf="@+id/media_preview_view"
+            app:layout_constraintStart_toStartOf="@id/media_preview_view" />
+
+        <ImageView
+            android:id="@+id/media_preview_featured_iv"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="4dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/featured_img_cd"
+            android:src="@drawable/baseline_star_24"
+            app:layout_constraintEnd_toEndOf="@+id/media_preview_view"
+            app:layout_constraintStart_toStartOf="@+id/media_preview_view"
+            app:layout_constraintTop_toTopOf="@+id/media_preview_view" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

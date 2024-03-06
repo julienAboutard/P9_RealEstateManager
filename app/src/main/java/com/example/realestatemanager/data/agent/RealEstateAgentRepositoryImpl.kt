@@ -9,7 +9,8 @@ class RealEstateAgentRepositoryImpl @Inject constructor(): RealEstateAgentReposi
             RealEstateAgent.KURO_ALMIRA,
             RealEstateAgent.NAECHRA_ALMIRA,
             RealEstateAgent.LENARI_ALMIRA,
-            RealEstateAgent.SENERA_ALMIRA
+            RealEstateAgent.SENERA_ALMIRA,
+            RealEstateAgent.TO_DEFINE
         )
     }
 }

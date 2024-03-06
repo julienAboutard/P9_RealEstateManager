@@ -24,12 +24,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="6dp"
+            android:text="@string/detail_media_tv"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@id/estate_detail_edit_fab"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/estate_detail_edit_fab"
+            app:layout_constraintTop_toTopOf="@id/estate_detail_edit_fab"
             tools:text="Media"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -39,7 +41,7 @@
             android:layout_marginTop="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/estate_details_media_tv"
+            app:layout_constraintTop_toBottomOf="@id/estate_detail_edit_fab"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
             tools:listitem="@layout/media_item"/>
@@ -137,6 +139,7 @@
             app:layout_constraintEnd_toEndOf="@id/estate_details_entry_date_tv"
             app:layout_constraintStart_toStartOf="@+id/estate_details_entry_date_tv"
             app:layout_constraintTop_toBottomOf="@id/estate_details_entry_date_tv"
+            app:layout_constraintBottom_toTopOf="@id/estate_details_description_tv"
             tools:text="Managed by John Doe" />
 
         <TextView
@@ -153,29 +156,18 @@
             app:layout_constraintTop_toBottomOf="@id/estate_details_location_tv"
             tools:text="A beautiful villa with a pool and a garden. The house is located in a quiet neighborhood. Lucrative investment." />
 
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/estate_details_carac_flexbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            app:alignItems="center"
-            app:flexDirection="row"
-            app:flexWrap="wrap"
-            app:justifyContent="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/estate_details_description_tv">
-
             <TextView
                 android:id="@+id/estate_details_surface_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="4dp"
+                android:layout_marginTop="12dp"
                 tools:text="1500 sq ft"
                 app:layout_flexGrow="1"
-                app:drawableStartCompat="@drawable/baseline_surface_24" />
+                app:drawableStartCompat="@drawable/baseline_surface_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/estate_details_room_tv"
+                app:layout_constraintTop_toBottomOf="@id/estate_details_description_tv"/>
 
             <TextView
                 android:id="@+id/estate_details_room_tv"
@@ -183,6 +175,9 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="4dp"
                 app:drawableStartCompat="@drawable/baseline_room_plan_24"
+                app:layout_constraintStart_toEndOf="@id/estate_details_surface_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/estate_details_surface_tv"
                 tools:text="5 rooms" />
 
             <TextView
@@ -190,7 +185,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="4dp"
+                android:layout_marginTop="6dp"
                 app:drawableStartCompat="@drawable/baseline_bed_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/estate_details_bathroom_tv"
+                app:layout_constraintTop_toBottomOf="@id/estate_details_surface_tv"
                 tools:text="3 bedrooms" />
 
             <TextView
@@ -200,8 +199,10 @@
                 android:drawablePadding="4dp"
                 android:maxLines="2"
                 app:drawableStartCompat="@drawable/baseline_bathtub_24"
+                app:layout_constraintStart_toEndOf="@id/estate_details_bedroom_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/estate_details_bedroom_tv"
                 tools:text="2 bathrooms" />
-        </com.google.android.flexbox.FlexboxLayout>
 
         <View
             android:id="@+id/horizontal_divider2"
@@ -213,7 +214,7 @@
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/estate_details_carac_flexbox"/>
+            app:layout_constraintTop_toBottomOf="@id/estate_details_bedroom_tv"/>
 
         <TextView
             android:id="@+id/estate_details_amenities_tv"
@@ -224,6 +225,7 @@
             android:textStyle="bold"
             android:textSize="18sp"
             android:textColor="@color/black"
+            android:text="@string/detail_amenities_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/horizontal_divider2"
             tools:text="Nearby Amenities"/>
@@ -268,6 +270,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
+            android:layout_marginTop="6dp"
             android:importantForAccessibility="no"
             android:src="@drawable/baseline_edit_24"
             app:fabSize="mini"

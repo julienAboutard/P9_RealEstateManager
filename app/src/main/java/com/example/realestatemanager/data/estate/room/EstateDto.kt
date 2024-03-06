@@ -1,13 +1,20 @@
 package com.example.realestatemanager.data.estate.room
 
 import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.LocalDateTime
 
+@Entity(
+    tableName = "estates",
+    indices = [Index(value = ["id"], unique = true)]
+)
 data class EstateDto (
 
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val type: String,
     val price: BigDecimal,
@@ -17,8 +24,8 @@ data class EstateDto (
     val bathrooms: Int,
     val description: String,
     val location: String,
-    val latitude: Double,
-    val longitude: Double,
+    val latitude: Double?,
+    val longitude: Double?,
     @ColumnInfo(name = "amenity_school")
     val amenitySchool: Boolean,
     @ColumnInfo(name = "amenity_park")
@@ -34,7 +41,7 @@ data class EstateDto (
     @ColumnInfo(name = "agent_name")
     val agentName: String,
     @ColumnInfo(name = "entry_date")
-    val entryDate: LocalDateTime,
+    val entryDate: LocalDate,
     @ColumnInfo(name = "sale_date")
-    val saleDate: LocalDateTime?,
+    val saleDate: LocalDate?,
 )

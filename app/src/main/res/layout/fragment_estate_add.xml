@@ -51,6 +51,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/estate_add_type_textInputLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -66,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
-                tools:hint="Select a Type"/>
+                android:hint="@string/type_hint"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,6 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             app:endIconMode="clear_text"
+            android:hint="@string/address_hint"
             app:layout_constraintEnd_toEndOf="@+id/estate_add_type_textInputLayout"
             app:layout_constraintStart_toStartOf="@+id/estate_add_type_textInputLayout"
             app:layout_constraintTop_toBottomOf="@+id/estate_add_type_textInputLayout"
@@ -91,18 +93,6 @@
                 android:maxLines="2"
                 android:padding="16dp" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/form_address_predictions_recyclerView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="@id/estate_add_address_textInputLayout"
-            app:layout_constraintStart_toStartOf="@id/estate_add_address_textInputLayout"
-            app:layout_constraintTop_toBottomOf="@id/estate_add_address_textInputLayout"
-            tools:itemCount="6"
-            tools:listitem="@layout/property_address_prediction_item"
-            tools:visibility="gone" />
 
         <TextView
             android:id="@+id/estate_add_address_is_valid_helper_tv"
@@ -168,7 +158,7 @@
             app:layout_constraintTop_toBottomOf="@id/estate_add_price_textInputLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/estate_add_bedroom_textInputLayout"
-            tools:hint="Rooms">
+            android:hint="@string/room_hint">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/estate_add_room_textInputEditText"
@@ -189,7 +179,7 @@
             app:layout_constraintTop_toTopOf="@id/estate_add_room_textInputLayout"
             app:layout_constraintStart_toEndOf="@id/estate_add_room_textInputLayout"
             app:layout_constraintEnd_toStartOf="@id/estate_add_bathroom_textInputLayout"
-            tools:hint="Bedrooms">
+            android:hint="@string/bedroom_hint">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/estate_add_bedroom_textInputEditText"
@@ -209,7 +199,7 @@
             app:layout_constraintTop_toTopOf="@id/estate_add_room_textInputLayout"
             app:layout_constraintStart_toEndOf="@id/estate_add_bedroom_textInputLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:hint="Bathrooms">
+            android:hint="@string/bathroom_hint">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/estate_add_bathroom_textInputEditText"
@@ -226,6 +216,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
+            android:hint="@string/description_hint"
             app:endIconMode="clear_text"
             app:expandedHintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
@@ -247,9 +238,12 @@
             android:id="@+id/estate_add_amenities_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/estate_add_description_textInputLayout"
-            tools:text="Amenities"/>
+            android:text="@string/detail_amenities_tv"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/estate_add_amenities_recyclerView"
@@ -268,6 +262,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/estate_add_agent_textInputLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -283,29 +278,62 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
-                tools:hint="Select an Agent"/>
+                android:hint="@string/agent_hint"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/estate_add_media_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_media_tv"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/estate_add_agent_textInputLayout"/>
+
         <Button
-            android:id="@+id/estate_add_media_from_storage_button"
+            android:id="@+id/estate_add_picture_from_storage_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             app:icon="@drawable/baseline_upload_file_24"
-            app:layout_constraintEnd_toStartOf="@id/estate_from_camera_button"
+            app:layout_constraintEnd_toStartOf="@id/estate_add_picture_from_camera_button"
             app:layout_constraintStart_toStartOf="@+id/estate_add_agent_textInputLayout"
-            app:layout_constraintTop_toBottomOf="@+id/estate_add_agent_textInputLayout"
-            tools:text="Import Media"/>
+            app:layout_constraintTop_toBottomOf="@+id/estate_add_media_tv"
+            android:text="@string/import_picture_btn"/>
 
         <Button
-            android:id="@+id/estate_from_camera_button"
+            android:id="@+id/estate_add_video_from_camera_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:icon="@drawable/baseline_camera_24"
             app:layout_constraintEnd_toEndOf="@+id/estate_add_agent_textInputLayout"
-            app:layout_constraintStart_toEndOf="@id/estate_add_media_from_storage_button"
-            app:layout_constraintTop_toTopOf="@id/estate_add_media_from_storage_button"
-            tools:text="Take From Camera"/>
+            app:layout_constraintStart_toEndOf="@id/estate_add_video_from_storage_button"
+            app:layout_constraintTop_toTopOf="@id/estate_add_video_from_storage_button"
+            android:text="@string/camera_video_btn"/>
+
+        <Button
+            android:id="@+id/estate_add_video_from_storage_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            app:icon="@drawable/baseline_upload_file_24"
+            app:layout_constraintEnd_toStartOf="@id/estate_add_picture_from_camera_button"
+            app:layout_constraintStart_toStartOf="@+id/estate_add_agent_textInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/estate_add_picture_from_storage_button"
+            android:text="@string/import_video_btn"/>
+
+        <Button
+            android:id="@+id/estate_add_picture_from_camera_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/baseline_camera_24"
+            app:layout_constraintEnd_toEndOf="@+id/estate_add_agent_textInputLayout"
+            app:layout_constraintStart_toEndOf="@id/estate_add_picture_from_storage_button"
+            app:layout_constraintTop_toTopOf="@id/estate_add_picture_from_storage_button"
+            android:text="@string/camera_picture_btn"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/estate_preview_media_recyclerView"
@@ -318,9 +346,9 @@
             app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/estate_add_media_from_storage_button"
+            app:layout_constraintTop_toBottomOf="@+id/estate_add_video_from_storage_button"
             tools:itemCount="5"
-            tools:listitem="@layout/property_preview_picture_item" />
+            tools:listitem="@layout/estate_preview_media_item" />
 
         <Button
             android:id="@+id/form_submit_button"
@@ -344,6 +372,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/form_submit_button"
             app:layout_constraintTop_toTopOf="@id/form_submit_button" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/form_address_predictions_recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/estate_add_address_textInputLayout"
+            app:layout_constraintStart_toStartOf="@id/estate_add_address_textInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/estate_add_address_textInputLayout"
+            tools:itemCount="6"
+            tools:listitem="@layout/estate_address_prediction_item"
+            tools:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -16,4 +16,86 @@
     <string name="type_manor">Manor</string>
     <string name="type_other">Other</string>
     <string name="type_all">All</string>
+
+    <string name="detail_manager_agent_name">Managed by %s</string>
+    <string name="detail_number_of_room_textview">%s rooms</string>
+    <string name="detail_number_of_bedroom_textview">%s bedrooms</string>
+    <string name="detail_number_of_bathroom_textview">%s bathrooms</string>
+    <string name="detail_amenities_flexbox_title_tv">Nearby amenities</string>
+    <string name="detail_sold_date_tv">SOLD DATE: %s</string>
+    <string name="detail_location_tv">%s</string>
+    <string name="detail_entry_date_tv">Entry date: %s</string>
+
+    <string name="price_hint">Price (%s)</string>
+    <string name="surface_area_unit_in_n">Area (%s)</string>
+    <string name="rooms_nb_short_version">%s RM</string>
+    <string name="bathrooms_nb_short_version">%s BA</string>
+    <string name="bedrooms_nb_short_version">%s BR</string>
+    <string name="form_create_button">Create estate</string>
+    <string name="form_update_button">Update estate</string>
+    <string name="form_creation_date_tv">Estate created on: %s</string>
+
+    <string name="no_internet_connection_draft_saved">Draft saved, please check your connection and try again</string>
+    <string name="form_successfully_created_message">Estate successfully created!</string>
+    <string name="form_successfully_updated_message">Estate successfully updated!</string>
+    <string name="form_generic_error_message">Oops, an error occurred, try again later!</string>
+
+    <string name="detail_media_tv">Medias</string>
+    <string name="detail_amenities_tv">Amenities</string>
+
+    <string name="estate_item_sold">SOLD</string>
+
+    <string name="all_btn">All</string>
+    <string name="for_sale_btn">For Sale</string>
+    <string name="sold_btn">Sold</string>
+    <string name="reset_btn">Reset</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="filter_btn">Filter</string>
+
+    <string name="type_tittle">Type</string>
+    <string name="price_range">Price range</string>
+    <string name="surface_range">Surface Range</string>
+    <string name="sale_state">Available for sale</string>
+    <string name="media_at_least">Number of media at least</string>
+    <string name="date_since">Since</string>
+    <string name="address_title">Address</string>
+
+    <string name="type_hint">Select a type</string>
+    <string name="agent_hint">Select an Agent</string>
+    <string name="min_price_hint">Minimum Price</string>
+    <string name="max_price_hint">Maximum Price</string>
+    <string name="min_surface_hint">Minimum Surface</string>
+    <string name="max_surface_hint">Maximum Surface</string>
+    <string name="media_hint">Minimum Media</string>
+    <string name="room_hint">Rooms</string>
+    <string name="bedroom_hint">Bedrooms</string>
+    <string name="bathroom_hint">Bathroom</string>
+    <string name="description_hint">Description</string>
+    <string name="media_title_hint">Title</string>
+    <string name="filter_address_hint">Zone Filter</string>
+    <string name="address_hint">Address</string>
+
+    <string name="import_picture_btn">Import Image</string>
+    <string name="camera_picture_btn">Image from Camera</string>
+    <string name="import_video_btn">Import Video</string>
+    <string name="camera_video_btn">Video from Camera</string>
+
+    <string name="add_btn_cd">Add Estate Button</string>
+    <string name="featured_img_cd">Image for Estate</string>
+    <string name="banner_cd">Sold Banner</string>
+    <string name="type_media_cd">Image To precise media type</string>
+    <string name="delete_btn_cd">Delete button</string>
+    <string name="feature_btn_cd">Feature Image button</string>
+
+    <string name="permission_rationale_message">Location permission is asked to display properties on the map, yet you can browse the map with the properties without your geolocation info.</string>
+    <string name="permission_rationale_ok_btn">Got it</string>
+    <string name="permission_rationale_title">Location permission</string>
+
+    <string name="geolocation_error_no_location_found">Can\'t find geolocation, try again later!</string>
+    <string name="geolocation_error_no_gps">Please enable GPS and try again!</string>
+
+    <string name="form_address_helper_text">Please select a valid address from suggestions</string>
+
+    <string name="bottom_sheet_edit_btn">Edit</string>
+    <string name="bottom_sheet_detail_btn">Detail</string>
 </resources>

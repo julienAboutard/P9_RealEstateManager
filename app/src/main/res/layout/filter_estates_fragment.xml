@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp">
+
+    <ScrollView
+        android:id="@+id/fragment_filter_scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@id/fragment_filter_buttons_bottom_banner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragment_filter_constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:id="@+id/fragment_filter_type_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/type_tittle"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fragment_filter_type_textInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="@id/fragment_filter_constraintLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fragment_filter_type_tv">
+
+                <AutoCompleteTextView
+                    android:id="@+id/fragment_filter_type_actv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/type_hint"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/fragment_address_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/address_title"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/fragment_filter_max_price_textInputLayout"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_filter_type_textInputLayout" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fragment_filter_address_textInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/filter_address_hint"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_address_tv">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fragment_filter_address_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/fragment_filter_price_range_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/price_range"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/fragment_filter_max_price_textInputLayout"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_filter_address_textInputLayout" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fragment_filter_min_price_textInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/min_price_hint"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_filter_price_range_tv">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fragment_filter_min_price_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fragment_filter_max_price_textInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/max_price_hint"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_filter_min_price_textInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fragment_filter_max_price_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fragment_filter_min_surface_textInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/min_surface_hint"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="@id/fragment_filter_constraintLayout"
+                app:layout_constraintStart_toStartOf="@id/fragment_filter_constraintLayout"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_filter_surface_range_tv">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fragment_filter_min_surface_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fragment_filter_max_surface_textInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/max_surface_hint"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="@id/fragment_filter_constraintLayout"
+                app:layout_constraintStart_toStartOf="@id/fragment_filter_constraintLayout"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_filter_min_surface_textInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fragment_filter_max_surface_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/fragment_filter_surface_range_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/surface_range"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/fragment_filter_max_price_textInputLayout"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_filter_max_price_textInputLayout"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fragment_filter_media_min_textInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/media_hint"
+                app:endIconMode="clear_text"
+                app:layout_constraintStart_toStartOf="@id/fragment_filter_constraintLayout"
+                app:layout_constraintEnd_toEndOf="@id/fragment_filter_constraintLayout"
+                app:layout_constraintTop_toBottomOf="@id/fragment_filter_media_min_tv">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fragment_filter_media_min_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/fragment_filter_media_min_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/media_at_least"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/fragment_filter_media_min_textInputLayout"
+                app:layout_constraintTop_toBottomOf="@id/fragment_filter_max_surface_textInputLayout"/>
+
+
+            <TextView
+                android:id="@+id/fragment_filter_amenities_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="@string/detail_amenities_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_filter_entrydate_picker" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fragment_filter_amenities_recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:flexDirection="row"
+                app:justifyContent="center"
+                app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fragment_filter_amenities_tv"
+                tools:itemCount="9"
+                tools:listitem="@layout/amenity_checkbox_item" />
+
+            <TextView
+                android:id="@+id/fragment_filter_entry_date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/date_since"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/fragment_filter_constraintLayout"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_filter_media_min_textInputLayout"/>
+
+            <DatePicker
+                android:id="@+id/fragment_filter_entrydate_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fragment_filter_entry_date_tv"
+                app:singleSelection="true">
+
+            </DatePicker>
+
+            <TextView
+                android:id="@+id/fragment_filter_entry_sale_state_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/sale_state"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_filter_amenities_recyclerView" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/fragment_filter_entry_sale_state_toggleGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:backgroundTint="?attr/colorPrimaryVariant"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_filter_entry_sale_state_tv"
+                app:singleSelection="true">
+
+                <Button
+                    android:id="@+id/fragment_filter_for_sale_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:text="@string/for_sale_btn" />
+
+                <Button
+                    android:id="@+id/fragment_filter_sold_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:text="@string/sold_btn" />
+
+                <Button
+                    android:id="@+id/fragment_filter_all_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/black"
+                    android:text="@string/all_btn" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_filter_buttons_bottom_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/fragment_filter_cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:text="@string/cancel_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_filter_reset_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/fragment_filter_reset_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:maxLines="2"
+            android:text="@string/reset_btn"
+            app:icon="@drawable/baseline_reset_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_filter_filter_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/fragment_filter_cancel_btn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/fragment_filter_filter_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:maxLines="2"
+            android:text="@string/filter_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/fragment_filter_reset_btn"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

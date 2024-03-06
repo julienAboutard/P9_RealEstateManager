@@ -2,6 +2,7 @@ package com.example.realestatemanager.ui.utils;
 
 import static androidx.core.content.ContextCompat.getSystemService;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -24,17 +25,15 @@ public class Utils {
     /**
      * Conversion d'un prix d'un bien immobilier (Dollars vers Euros)
      * NOTE : NE PAS SUPPRIMER, A MONTRER DURANT LA SOUTENANCE
-     * initial valeur de conversion 0.812
-     * On change cette valeur pour correspondre à taux actuelle (07/02/2023) 0.9282
      * @param dollars
      * @return
      */
     public static int convertDollarToEuro(int dollars){
-        return (int) Math.round(dollars * 0.9282);
+        return (int) Math.round(dollars * 0.812);
     }
 
     public static int convertEuroToDollar(int euros) {
-        return (int) Math.round(euros * 1.07729);
+        return (int) Math.round(euros * 1.23);
     }
 
     /**
@@ -43,7 +42,7 @@ public class Utils {
      * @return
      */
     public static String getTodayDate(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         return dateFormat.format(new Date());
     }
 

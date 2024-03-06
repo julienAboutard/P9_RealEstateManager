@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mapBottomSheet_property_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <FrameLayout
+        android:id="@+id/mapBottomSheet_property_detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+                android:id="@+id/drag_handle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/mapBottomSheet_property_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:importantForAccessibility="no"
+                android:maxHeight="140dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/drag_handle"
+                tools:src="@tools:sample/avatars" />
+
+            <LinearLayout
+                android:id="@+id/mapBottomSheet_property_sold_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:background="#F00"
+                app:layout_constraintBottom_toBottomOf="@id/mapBottomSheet_property_imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/mapBottomSheet_property_sold_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/estate_item_sold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/mapBottomSheet_property_type_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/media_type_round_background"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/mapBottomSheet_property_imageView"
+                tools:text="Villa" />
+
+            <TextView
+                android:id="@+id/mapBottomSheet_property_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:textColor="@color/black"
+                android:background="@drawable/media_type_round_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/mapBottomSheet_property_imageView"
+                tools:text="$200,000" />
+
+
+            <TextView
+                android:id="@+id/mapBottomSheet_property_surface_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                app:drawableStartCompat="@drawable/baseline_surface_24"
+                app:layout_constraintBottom_toTopOf="@+id/mapBottomSheet_property_detail_btn"
+                app:layout_constraintEnd_toStartOf="@id/mapBottomSheet_property_rooms_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mapBottomSheet_property_description_tv"
+                tools:text="260m²" />
+
+            <TextView
+                android:id="@+id/mapBottomSheet_property_description_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="12dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mapBottomSheet_property_imageView"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi." />
+
+            <TextView
+                android:id="@+id/mapBottomSheet_property_rooms_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                app:drawableStartCompat="@drawable/baseline_room_plan_24"
+                app:layout_constraintEnd_toStartOf="@id/mapBottomSheet_property_bathrooms_tv"
+                app:layout_constraintStart_toEndOf="@+id/mapBottomSheet_property_surface_tv"
+                app:layout_constraintTop_toBottomOf="@id/mapBottomSheet_property_description_tv"
+                tools:layout_editor_absoluteY="297dp"
+                tools:text="5 RM" />
+
+            <TextView
+                android:id="@+id/mapBottomSheet_property_bathrooms_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                app:drawableStartCompat="@drawable/baseline_bathtub_24"
+                app:layout_constraintBottom_toBottomOf="@id/mapBottomSheet_property_rooms_tv"
+                app:layout_constraintEnd_toStartOf="@id/mapBottomSheet_property_bedrooms_tv"
+                app:layout_constraintStart_toEndOf="@id/mapBottomSheet_property_rooms_tv"
+                tools:text="3 BA" />
+
+            <TextView
+                android:id="@+id/mapBottomSheet_property_bedrooms_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                app:drawableStartCompat="@drawable/baseline_bed_24"
+                app:layout_constraintBottom_toTopOf="@+id/mapBottomSheet_property_edit_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/mapBottomSheet_property_bathrooms_tv"
+                app:layout_constraintTop_toBottomOf="@+id/mapBottomSheet_property_description_tv"
+                tools:text="3 BR" />
+
+
+            <Button
+                android:id="@+id/mapBottomSheet_property_detail_btn"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/bottom_sheet_detail_btn"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/mapBottomSheet_property_edit_btn"
+                style="@style/Widget.Material3.Button.TextButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/bottom_sheet_edit_btn"
+                android:textAllCaps="true"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:icon="@drawable/baseline_edit_24"
+                app:iconTint="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/mapBottomSheet_property_progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

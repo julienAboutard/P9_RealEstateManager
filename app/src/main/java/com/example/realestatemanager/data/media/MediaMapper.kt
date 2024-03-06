@@ -30,6 +30,7 @@ class MediaMapper @Inject constructor() {
 
     fun mapToDomainEntity(mediaDto: MediaDto): MediaEntity {
         return MediaEntity(
+            id = mediaDto.id,
             uri = mediaDto.uri,
             isFeatured = mediaDto.isFeatured,
             description = mediaDto.description,
@@ -40,6 +41,7 @@ class MediaMapper @Inject constructor() {
     fun mapToDomainEntities(mediaDtoEntities: List<MediaDto>): List<MediaEntity> {
         return mediaDtoEntities.map {
             MediaEntity(
+                id = it.id,
                 uri = it.uri,
                 isFeatured = it.isFeatured,
                 description = it.description,

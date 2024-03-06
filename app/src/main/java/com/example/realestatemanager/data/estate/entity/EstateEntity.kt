@@ -3,6 +3,7 @@ package com.example.realestatemanager.data.estate.entity
 import com.example.realestatemanager.data.amenity.AmenityType
 import com.example.realestatemanager.data.media.entity.MediaEntity
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class EstateEntity(
@@ -15,11 +16,11 @@ data class EstateEntity(
     val bathrooms: Int,
     val description: String,
     val location: String,
-    val latitude: Double,
-    val longitude: Double,
+    val latitude: Double?,
+    val longitude: Double?,
     val medias: List<MediaEntity>,
     val amenities: List<AmenityType>,
     val agentName: String,
-    val entryDate: LocalDateTime,
-    val saleDate: LocalDateTime?,
+    val entryDate: LocalDate,
+    val saleDate: LocalDate?,
 )

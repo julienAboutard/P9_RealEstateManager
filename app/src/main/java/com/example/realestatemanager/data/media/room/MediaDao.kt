@@ -5,12 +5,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
+import androidx.room.Upsert
 
 @Dao
 interface MediaDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(mediaDto: MediaDto)
+    suspend fun insert(mediaDto: MediaDto): Long?
 
     @Query("SELECT id FROM medias WHERE estate_id = :estateId")
     suspend fun getAllMediasIdsFromEstateId(estateId: Long): List<Long>

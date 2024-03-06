@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.slidingpanelayout.widget.SlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/sliding_pane_layout">
+
+    <!--<androidx.fragment.app.FragmentContainerView
+        android:id="@+id/estate_list_nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"/>-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="280dp"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/estate_list_rv"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/estate_item"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/estate_list_add_fab"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_margin="16dp"
+            android:contentDescription="TODO"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/baseline_add_home_24" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--<androidx.fragment.app.FragmentContainerView
+        android:id="@+id/estate_detail_nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />-->
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/estate_detail_container"
+        android:name="com.example.realestatemanager.ui.estate.detail.DetailFragment"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+</androidx.slidingpanelayout.widget.SlidingPaneLayout>

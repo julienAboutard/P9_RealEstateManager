@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/slid_nav_graph"
+    app:startDestination="@id/estate_list">
 
+    <fragment
+        android:id="@+id/estate_list"
+        android:name="com.example.realestatemanager.ui.slidepane.SlidePaneFragment"
+        tools:layout="@layout/slidepanelayout">
+
+        <action
+            android:id="@+id/action_list_to_detail"
+            app:destination="@id/estate_detail"/>
+        <action
+            android:id="@+id/action_list_to_add"
+            app:destination="@id/estate_add"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/estate_detail"
+        android:name="com.example.realestatemanager.ui.estate.detail.DetailFragment"
+        tools:layout="@layout/fragment_estate_details">
+
+        <action
+            android:id="@+id/action_detail_to_list"
+            app:destination="@id/estate_list"/>
+        <action
+            android:id="@+id/action_detail_to_add"
+            app:destination="@id/estate_add" />
+    </fragment>
+    <fragment
+        android:id="@+id/estate_add"
+        android:name="com.example.realestatemanager.ui.estate.add.AddFragment"
+        tools:layout="@layout/fragment_estate_add">
+
+        <action
+            android:id="@+id/action_add_to_list"
+            app:destination="@id/estate_list" />
+    </fragment>
+    <dialog
+        android:id="@+id/filterEstatesFragment"
+        android:name="com.example.realestatemanager.ui.filter.FilterEstatesFragment"
+        android:label="FilterEstatesFragment" />
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.realestatemanager.ui.map.MapsFragment"
+        android:label="MapsFragment" />
+    <dialog
+        android:id="@+id/mapBottomSheetFragment"
+        android:name="com.example.realestatemanager.ui.map.bottom_sheet.MapBottomSheetFragment"
+        android:label="MapBottomSheetFragment" />
 </navigation>
