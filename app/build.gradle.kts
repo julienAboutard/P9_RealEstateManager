@@ -39,6 +39,10 @@ android {
         isCoreLibraryDesugaringEnabled = true
     }
 
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
