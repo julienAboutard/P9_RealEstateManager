@@ -19,7 +19,6 @@ data class FilterViewState(
     val estateTypes: List<TypeViewStateItem>,
     val researchDate: LocalDate?,
     val availableForSale: EstateSaleState? = EstateSaleState.ALL,
-    val isFilterButtonEnabled: Boolean,
     val onFilterClicked: EquatableCallback,
     val onCancelClicked: EquatableCallback,
 )

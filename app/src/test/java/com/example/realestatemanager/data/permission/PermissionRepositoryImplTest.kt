@@ -1,7 +1,7 @@
-package com.emplk.realestatemanager.data.permission
+package com.example.realestatemanager.data.permission
 
 import app.cash.turbine.test
-import com.emplk.utils.TestCoroutineRule
+import com.example.utils.TestCoroutineRule
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Rule

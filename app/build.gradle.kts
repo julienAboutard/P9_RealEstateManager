@@ -96,6 +96,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.4")
     testImplementation("org.slf4j:slf4j-nop:2.0.9") // to avoid warning about missing logger
     testImplementation("org.robolectric:robolectric:4.9")
+    testImplementation("app.cash.turbine:turbine:1.0.0")
     implementation("androidx.test:core-ktx:1.5.0")
 
 

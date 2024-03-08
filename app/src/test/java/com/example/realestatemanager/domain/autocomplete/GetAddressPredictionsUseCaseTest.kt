@@ -1,7 +1,9 @@
-package com.emplk.realestatemanager.domain.autocomplete
+package com.example.realestatemanager.domain.autocomplete
 
 import assertk.assertThat
-import com.emplk.utils.TestCoroutineRule
+import com.example.realestatemanager.data.autocomplete.PredictionRepository
+import com.example.realestatemanager.data.autocomplete.PredictionWrapper
+import com.example.utils.TestCoroutineRule
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.confirmVerified

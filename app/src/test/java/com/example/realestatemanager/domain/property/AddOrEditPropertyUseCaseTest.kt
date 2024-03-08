@@ -1,41 +1,32 @@
-package com.emplk.realestatemanager.domain.property
+package com.example.realestatemanager.domain.property
 
 import assertk.assertThat
-import com.emplk.realestatemanager.domain.connectivity.IsInternetEnabledFlowUseCase
-import com.emplk.realestatemanager.domain.current_property.ResetCurrentPropertyIdUseCase
 import com.emplk.realestatemanager.domain.geocoding.GeocodingRepository
-import com.emplk.realestatemanager.domain.geocoding.GeocodingWrapper
-import com.emplk.realestatemanager.domain.locale_formatting.surface.ConvertSurfaceToSquareFeetDependingOnLocaleUseCase
-import com.emplk.realestatemanager.domain.locale_formatting.surface.ConvertToUsdDependingOnLocaleUseCase
-import com.emplk.realestatemanager.domain.map_picture.GenerateMapBaseUrlWithParamsUseCase
-import com.emplk.realestatemanager.domain.navigation.SetNavigationTypeUseCase
-import com.emplk.realestatemanager.domain.navigation.draft.SetPropertyInsertingInDatabaseUseCase
-import com.emplk.realestatemanager.domain.property.pictures.PictureRepository
-import com.emplk.realestatemanager.domain.property_draft.FormDraftRepository
-import com.emplk.realestatemanager.domain.property_draft.ResetPropertyFormUseCase
-import com.emplk.realestatemanager.domain.property_draft.UpdatePropertyFormUseCase
-import com.emplk.realestatemanager.domain.property_draft.picture_preview.GetPicturePreviewsUseCase
-import com.emplk.realestatemanager.fixtures.getTestFormDraftParams
-import com.emplk.realestatemanager.fixtures.testFixedClock
-import com.emplk.realestatemanager.ui.add.FormEvent
-import com.emplk.utils.TestCoroutineRule
+import com.example.realestatemanager.data.estate.EstateRepository
+import com.example.realestatemanager.fixtures.getTestEditFormParams
+import com.example.realestatemanager.fixtures.testFixedClock
+import com.example.realestatemanager.data.geocoding.GeocodingWrapper
+import com.example.realestatemanager.domain.estate.AddOrEditEstateUseCase
+import com.example.realestatemanager.domain.estate.current.ResetCurrentEstateIdUseCase
+import com.example.realestatemanager.domain.media.DeleteMediaUseCase
+import com.example.realestatemanager.domain.navigation.SetNavigationTypeUseCase
+import com.example.realestatemanager.fixtures.getTestAddFormParams
+import com.example.realestatemanager.ui.estate.add.AddOrEditEvent
+import com.example.utils.TestCoroutineRule
 import com.google.android.gms.maps.model.LatLng
 import io.mockk.coEvery
 import io.mockk.coJustRun
-import io.mockk.every
+import io.mockk.coVerify
 import io.mockk.justRun
 import io.mockk.mockk
-import kotlinx.coroutines.flow.flowOf
-import org.junit.Assert.assertThrows
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.math.BigDecimal
 
 class AddOrEditPropertyUseCaseTest {
 
     companion object {
-        private const val TEST_PROPERTY_ID = 1L
+        private const val TEST_EDIT_ESTATE_ID = 1L
         private val TEST_GEOCODING_WRAPPER_SUCCESS = GeocodingWrapper.Success(
             LatLng(123.0, 456.0)
         )
@@ -44,117 +35,58 @@ class AddOrEditPropertyUseCaseTest {
     @get:Rule
     val testCoroutineRule = TestCoroutineRule()
 
-    private val propertyRepository: PropertyRepository = mockk()
-    private val formDraftRepository: FormDraftRepository = mockk()
+    private val estateRepository: EstateRepository = mockk()
     private val geocodingRepository: GeocodingRepository = mockk()
-    private val pictureRepository: PictureRepository = mockk()
-    private val isInternetEnabledFlowUseCase: IsInternetEnabledFlowUseCase = mockk()
-    private val generateMapBaseUrlWithParamsUseCase: GenerateMapBaseUrlWithParamsUseCase = mockk()
-    private val convertToUsdDependingOnLocaleUseCase: ConvertToUsdDependingOnLocaleUseCase = mockk()
-    private val getPicturePreviewsUseCase: GetPicturePreviewsUseCase = mockk()
-    private val convertSurfaceToSquareFeetDependingOnLocaleUseCase: ConvertSurfaceToSquareFeetDependingOnLocaleUseCase =
-        mockk()
-    private val updatePropertyFormUseCase: UpdatePropertyFormUseCase = mockk()
-    private val setPropertyInsertingInDatabaseUseCase: SetPropertyInsertingInDatabaseUseCase = mockk()
-    private val resetPropertyFormUseCase: ResetPropertyFormUseCase = mockk()
-    private val resetCurrentPropertyIdUseCase: ResetCurrentPropertyIdUseCase = mockk()
     private val setNavigationTypeUseCase: SetNavigationTypeUseCase = mockk()
+    private val resetCurrentEstateIdUseCase: ResetCurrentEstateIdUseCase = mockk()
+    private val deleteMediaUseCase: DeleteMediaUseCase = mockk()
 
-    private val addOrEditPropertyUseCase = AddOrEditPropertyUseCase(
-        propertyRepository,
-        formDraftRepository,
+    private val addOrEditEstateUseCase = AddOrEditEstateUseCase(
+        estateRepository,
         geocodingRepository,
-        pictureRepository,
-        isInternetEnabledFlowUseCase,
-        generateMapBaseUrlWithParamsUseCase,
-        convertToUsdDependingOnLocaleUseCase,
-        getPicturePreviewsUseCase,
-        convertSurfaceToSquareFeetDependingOnLocaleUseCase,
-        updatePropertyFormUseCase,
-        setPropertyInsertingInDatabaseUseCase,
-        resetPropertyFormUseCase,
-        resetCurrentPropertyIdUseCase,
         setNavigationTypeUseCase,
-        testFixedClock
+        testFixedClock,
+        resetCurrentEstateIdUseCase,
+        deleteMediaUseCase,
     )
 
     @Before
     fun setUp() {
-        coEvery { propertyRepository.update(any()) } returns true
+        coEvery { estateRepository.update(any()) } returns true
 
-        coEvery { propertyRepository.addPropertyWithDetails(any()) } returns true
+        coEvery { estateRepository.addEstateWithDetails(any()) } returns true
 
         coEvery { geocodingRepository.getLatLong(any()) } returns TEST_GEOCODING_WRAPPER_SUCCESS
 
-        coEvery { isInternetEnabledFlowUseCase.invoke() } returns flowOf(true)
+        coJustRun { deleteMediaUseCase.invoke(TEST_EDIT_ESTATE_ID) }
 
-        coEvery { convertToUsdDependingOnLocaleUseCase.invoke(any()) } returns BigDecimal(1000000)
-
-        every { convertSurfaceToSquareFeetDependingOnLocaleUseCase.invoke(any()) } returns BigDecimal(500)
-
-        coEvery { pictureRepository.getPicturesIds(TEST_PROPERTY_ID) } returns listOf(1L, 2L, 3L)
-
-        coEvery { getPicturePreviewsUseCase.invoke(any()) } returns emptyList()
-
-        coJustRun { pictureRepository.delete(TEST_PROPERTY_ID) }
-
-        justRun { resetCurrentPropertyIdUseCase.invoke() }
-
-        coJustRun { updatePropertyFormUseCase.invoke(any()) }
-
-        justRun { setPropertyInsertingInDatabaseUseCase.invoke(any()) }
-
-        coJustRun { resetPropertyFormUseCase.invoke(any()) }
+        justRun { resetCurrentEstateIdUseCase.invoke() }
 
         justRun { setNavigationTypeUseCase.invoke(any()) }
-
-        every { generateMapBaseUrlWithParamsUseCase.invoke(any()) } returns "https://www.google.com/maps/123456789"
-    }
-
-    @Test
-    fun `invoke (update) - nominal case`() = testCoroutineRule.runTest {
-        // Given
-        coEvery { formDraftRepository.doesPropertyExist(TEST_PROPERTY_ID) } returns true
-
-        // When
-        val result = addOrEditPropertyUseCase.invoke(getTestFormDraftParams(TEST_PROPERTY_ID))
-
-        // Then
-        assertThat { result is FormEvent.Toast }
     }
 
     @Test
     fun `invoke (add) - nominal case`() = testCoroutineRule.runTest {
         // Given
-        coEvery { formDraftRepository.doesPropertyExist(TEST_PROPERTY_ID) } returns false
 
         // When
-        val result = addOrEditPropertyUseCase.invoke(getTestFormDraftParams(TEST_PROPERTY_ID))
+        val result = addOrEditEstateUseCase.invoke(getTestAddFormParams())
 
         // Then
-        assertThat { result is FormEvent.Toast }
+        assertThat { result is AddOrEditEvent.Toast }
+        coVerify { setNavigationTypeUseCase.invoke(any()) }
     }
 
     @Test
     fun `invoke (edit) - nominal case`() = testCoroutineRule.runTest {
         // Given
-        coEvery { formDraftRepository.doesPropertyExist(TEST_PROPERTY_ID) } returns true
 
         // When
-        val result = addOrEditPropertyUseCase.invoke(getTestFormDraftParams(TEST_PROPERTY_ID))
+        val result = addOrEditEstateUseCase.invoke(getTestEditFormParams(TEST_EDIT_ESTATE_ID))
 
         // Then
-        assertThat { result is FormEvent.Toast }
+        assertThat { result is AddOrEditEvent.Toast }
+        coVerify { setNavigationTypeUseCase.invoke(any()) }
     }
 
-    @Test
-    fun `edge case - incorrect FormDraftParams properties throws IllegalArgumentException`() =
-        testCoroutineRule.runTest {
-            val formDraftParams = getTestFormDraftParams(TEST_PROPERTY_ID)
-            val copy = formDraftParams.copy(
-                address = null,
-                price = BigDecimal.ZERO
-            )
-            assertThrows(IllegalArgumentException::class.java) { coEvery { addOrEditPropertyUseCase.invoke(copy) } }
-        }
 }

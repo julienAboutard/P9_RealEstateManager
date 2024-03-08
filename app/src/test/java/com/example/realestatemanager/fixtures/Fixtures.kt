@@ -1,25 +1,18 @@
-package com.emplk.realestatemanager.fixtures
+package com.example.realestatemanager.fixtures
 
-import com.emplk.realestatemanager.data.agent.RealEstateAgent
-import com.emplk.realestatemanager.data.property.PropertyDto
-import com.emplk.realestatemanager.data.property.PropertyWithDetails
-import com.emplk.realestatemanager.data.property.location.LocationDto
-import com.emplk.realestatemanager.data.property.picture.PictureDto
-import com.emplk.realestatemanager.data.property_draft.FormDraftDto
-import com.emplk.realestatemanager.data.property_type.PropertyType
-import com.emplk.realestatemanager.domain.property.amenity.AmenityType
-import com.emplk.realestatemanager.domain.property.location.LocationEntity
-import com.emplk.realestatemanager.domain.property.model.PropertyEntity
-import com.emplk.realestatemanager.domain.property.pictures.PictureEntity
-import com.emplk.realestatemanager.domain.property_draft.FormDraftParams
-import com.emplk.realestatemanager.domain.property_draft.model.FormDraftEntity
-import com.emplk.realestatemanager.domain.property_draft.picture_preview.PicturePreviewEntity
+import com.example.realestatemanager.data.agent.RealEstateAgent
+import com.example.realestatemanager.data.amenity.AmenityType
+import com.example.realestatemanager.data.estate.EstateWithDetails
+import com.example.realestatemanager.data.estate.entity.EstateEntity
 import com.example.realestatemanager.data.estate.room.EstateDto
-import com.google.android.gms.maps.model.LatLng
+import com.example.realestatemanager.data.estate.type.EstateType
+import com.example.realestatemanager.data.media.entity.MediaEntity
+import com.example.realestatemanager.data.media.room.MediaDto
+import com.example.realestatemanager.domain.form.FormParams
 import java.math.BigDecimal
 import java.time.Clock
 import java.time.Instant
-import java.time.LocalDateTime
+import java.time.LocalDate
 import java.time.ZoneOffset
 
 /**
@@ -30,7 +23,7 @@ val testFixedClock: Clock =
 
 // region PropertyDto
 
-fun getTestPropertyDto(id: Long) = EstateDto(
+fun getTestEstateDto(id: Long) = EstateDto(
     id = id,
     type = "House",
     price = BigDecimal(1000000),
@@ -45,53 +38,53 @@ fun getTestPropertyDto(id: Long) = EstateDto(
     amenityRestaurant = false,
     amenityTransportation = false,
     amenityHospital = false,
-    agentName = "John Doe",
+    agentName = "Shiro Almira",
     saleDate = null,
-    lastEditionDate = LocalDateTime.of(2023, 1, 1, 12, 0),
-    entryDate = LocalDateTime.of(2023, 1, 1, 12, 0),
-    entryDateEpoch = 1672570800000,
+    entryDate = LocalDate.of(2023, 1, 1),
+    latitude = 123.0,
+    longitude = 456.0,
+    location = "1st, Dummy Street, 12345, Dummy City",
 )
 
 
 // region PropertyEntity
 
-fun getTestPropertyEntity(id: Long) = PropertyEntity(
+fun getTestEstateEntity(id: Long) = EstateEntity(
     id = id,
     type = "House",
     price = BigDecimal(1000000),
     surface = BigDecimal(500),
-    location = LocationEntity(
-        address = "1st, Dummy Street, 12345, Dummy City",
-        miniatureMapUrl = "https://www.google.com/maps/123456789",
-        latLng = LatLng(123.0, 456.0),
-    ),
+    location = "1st, Dummy Street, 12345, Dummy City",
     rooms = 5,
     bedrooms = 3,
     bathrooms = 2,
     description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    agentName = "John Doe",
-    pictures = buildList {
+    agentName = "Shiro Almira",
+    medias = buildList {
         add(
-            PictureEntity(
+            MediaEntity(
                 id = 1L,
                 uri = "https://www.google.com/front_view",
                 description = "Front view",
+                type = "pic",
                 isFeatured = true,
             )
         )
         add(
-            PictureEntity(
+            MediaEntity(
                 id = 2L,
                 uri = "https://www.google.com/garden",
                 description = "Garden",
+                type = "vid",
                 isFeatured = false,
             )
         )
         add(
-            PictureEntity(
+            MediaEntity(
                 id = 3L,
                 uri = "https://www.google.com/swimming_pool",
                 description = "Swimming pool",
+                type = "pic",
                 isFeatured = false,
             )
         )
@@ -102,87 +95,77 @@ fun getTestPropertyEntity(id: Long) = PropertyEntity(
         add(AmenityType.SHOPPING_MALL)
     },
     saleDate = null,
-    lastEditionDate = LocalDateTime.of(2023, 1, 1, 12, 0),
-    entryDate = LocalDateTime.of(2023, 1, 1, 12, 0),
+    entryDate = LocalDate.of(2023, 1, 1),
+    latitude = 123.0,
+    longitude = 456.0,
 )
 
-fun getPropertyEntities(n: Long) = buildList {
+fun getEstateEntities(n: Long) = buildList {
     for (i in 1..n) {
-        add(getTestPropertyEntity(i))
+        add(getTestEstateEntity(i))
     }
 }
 // endregion PropertyEntity
 
 // region PropertyWithDetail
-fun getPropertyWithDetail(propertyId: Long) = PropertyWithDetails(
-    property = getTestPropertyDto(propertyId),
-    location = getTestLocationDto(propertyId),
-    pictures = getPictureDtos(propertyId),
+fun getEstateWithDetail(propertyId: Long) = EstateWithDetails(
+    estate = getTestEstateDto(propertyId),
+    medias = getTestMediaDto(propertyId),
 )
 // endregion PropertyWithDetail
 
 
-// region Location
-fun getTestLocationDto(propertyId: Long) = LocationDto(
-    propertyId = propertyId,
-    address = "1st, Dummy Street, 12345, Dummy City",
-    miniatureMapUrl = "https://www.google.com/maps/123456789",
-    latitude = 123.0,
-    longitude = 456.0,
-)
-
-fun getTestLocationEntity() = LocationEntity(
-    address = "1st, Dummy Street, 12345, Dummy City",
-    miniatureMapUrl = "https://www.google.com/maps/123456789",
-    latLng = LatLng(123.0, 456.0),
-)
-// endregion Location
-
 // region Picture
-fun getPictureDtos(propertyId: Long) = buildList {
+fun getTestMediaDto(estateId: Long) = buildList {
     add(
-        PictureDto(
-            propertyId = propertyId,
+        MediaDto(
+            estateId = estateId,
             uri = "https://www.google.com/front_view",
             description = "Front view",
+            type = "pic",
             isFeatured = true,
         )
     )
     add(
-        PictureDto(
-            propertyId = propertyId,
+        MediaDto(
+            estateId = estateId,
             uri = "https://www.google.com/garden",
             description = "Garden",
+            type = "vid",
             isFeatured = false,
         )
     )
     add(
-        PictureDto(
-            propertyId = propertyId,
+        MediaDto(
+            estateId = estateId,
             uri = "https://www.google.com/swimming_pool",
             description = "Swimming pool",
+            type = "pic",
             isFeatured = false,
         )
     )
 }
 
-fun getTestPictureEntities() = listOf(
-    PictureEntity(
+fun getTestMediaEntities() = listOf(
+    MediaEntity(
         id = 1L,
         uri = "https://www.google.com/front_view",
         description = "Front view",
+        type = "pic",
         isFeatured = true,
     ),
-    PictureEntity(
+    MediaEntity(
         id = 2L,
         uri = "https://www.google.com/garden",
         description = "Garden",
+        type = "vid",
         isFeatured = false,
     ),
-    PictureEntity(
+    MediaEntity(
         id = 3L,
         uri = "https://www.google.com/swimming_pool",
         description = "Swimming pool",
+        type = "pic",
         isFeatured = false,
     ),
 )
@@ -190,151 +173,153 @@ fun getTestPictureEntities() = listOf(
 
 
 // region mappers
-fun mapPropertyEntityToDto(property: PropertyEntity) = PropertyDto(
-    id = property.id,
-    type = property.type,
-    price = property.price,
-    surface = property.surface,
-    rooms = property.rooms,
-    bedrooms = property.bedrooms,
-    bathrooms = property.bathrooms,
-    description = property.description,
-    amenitySchool = property.amenities.contains(AmenityType.SCHOOL),
-    amenityPark = property.amenities.contains(AmenityType.PARK),
-    amenityShopping = property.amenities.contains(AmenityType.SHOPPING_MALL),
-    amenityRestaurant = property.amenities.contains(AmenityType.RESTAURANT),
-    amenityConcierge = property.amenities.contains(AmenityType.CONCIERGE),
-    amenityGym = property.amenities.contains(AmenityType.GYM),
-    amenityTransportation = property.amenities.contains(AmenityType.PUBLIC_TRANSPORTATION),
-    amenityHospital = property.amenities.contains(AmenityType.HOSPITAL),
-    amenityLibrary = property.amenities.contains(AmenityType.LIBRARY),
-    agentName = property.agentName,
-    entryDate = property.entryDate,
-    entryDateEpoch = property.entryDate.toEpochSecond(ZoneOffset.UTC),
-    saleDate = property.saleDate,
-    lastEditionDate = property.lastEditionDate,
+fun mapEstateEntityToDto(estate: EstateEntity) = EstateDto(
+    id = estate.id,
+    type = estate.type,
+    price = estate.price,
+    surface = estate.surface,
+    rooms = estate.rooms,
+    bedrooms = estate.bedrooms,
+    bathrooms = estate.bathrooms,
+    description = estate.description,
+    amenitySchool = estate.amenities.contains(AmenityType.SCHOOL),
+    amenityPark = estate.amenities.contains(AmenityType.PARK),
+    amenityShopping = estate.amenities.contains(AmenityType.SHOPPING_MALL),
+    amenityRestaurant = estate.amenities.contains(AmenityType.RESTAURANT),
+    amenityTransportation = estate.amenities.contains(AmenityType.PUBLIC_TRANSPORTATION),
+    amenityHospital = estate.amenities.contains(AmenityType.HOSPITAL),
+    agentName = estate.agentName,
+    entryDate = estate.entryDate,
+    saleDate = estate.saleDate,
+    location = estate.location,
+    longitude = estate.longitude,
+    latitude = estate.latitude,
 )
 
 // endregion mappers
 
 // region FormDraftParams
-fun getTestFormDraftParams(id: Long) = FormDraftParams(
-    id = id,
-    typeDatabaseName = "House",
-    draftTitle = "House for sale in Dummy City",
+
+fun getTestAddFormParams() = FormParams(
+    addOrEditStatus = "add",
+    type = "House",
     address = "1st, Dummy Street, 12345, Dummy City",
     isAddressValid = true,
     price = BigDecimal(1000000),
     surface = BigDecimal(500),
     description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    nbRooms = 5,
-    nbBathrooms = 2,
-    nbBedrooms = 3,
-    agent = "John Doe",
+    rooms = 5,
+    bathrooms = 2,
+    bedrooms = 3,
+    agent = "Shiro Almira",
     selectedAmenities = buildList {
         add(AmenityType.SCHOOL)
         add(AmenityType.PARK)
         add(AmenityType.SHOPPING_MALL)
     },
-    pictureIds = buildList {
-        add(1L)
-        add(2L)
-        add(3L)
+    medias = buildList {
+        MediaEntity(
+            id = 1L,
+            uri = "https://www.google.com/front_view",
+            description = "Front view",
+            type = "pic",
+            isFeatured = true,
+        )
+        MediaEntity(
+            id = 2L,
+            uri = "https://www.google.com/garden",
+            description = "Garden",
+            type = "vid",
+            isFeatured = false,
+        )
+        MediaEntity(
+            id = 3L,
+            uri = "https://www.google.com/swimming_pool",
+            description = "Swimming pool",
+            type = "pic",
+            isFeatured = false,
+        )
     },
-    featuredPictureId = 1L,
     isSold = false,
-    entryDate = LocalDateTime.of(2023, 1, 1, 12, 0),
-    entryDateEpoch = 1698758555,
     soldDate = null,
-    lastEditionDate = LocalDateTime.of(2023, 1, 1, 12, 0),
-    formType = null,
 )
-// endregion FormDraftParams
 
-// region FormDraftEntity
-fun getTestFormDraftEntity(id: Long) = FormDraftEntity(
+fun getTestEditFormParams(id: Long) = FormParams(
     id = id,
+    addOrEditStatus = "edit",
     type = "House",
-    title = "House for sale in Dummy City",
     address = "1st, Dummy Street, 12345, Dummy City",
     isAddressValid = true,
     price = BigDecimal(1000000),
     surface = BigDecimal(500),
-    description = "Test description",
+    description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     rooms = 5,
     bathrooms = 2,
     bedrooms = 3,
-    agentName = "John Doe",
-    amenities = buildList {
+    agent = "Shiro Almira",
+    selectedAmenities = buildList {
         add(AmenityType.SCHOOL)
         add(AmenityType.PARK)
         add(AmenityType.SHOPPING_MALL)
     },
-    pictures = getTestPicturePreviewEntities(),
-    entryDate = LocalDateTime.of(2023, 1, 1, 12, 0),
-    saleDate = null,
-    lastEditionDate = LocalDateTime.of(2023, 1, 1, 12, 0),
+    medias = buildList {
+        MediaEntity(
+            id = 1L,
+            uri = "https://www.google.com/front_view",
+            description = "Front view",
+            type = "pic",
+            isFeatured = true,
+        )
+        MediaEntity(
+            id = 2L,
+            uri = "https://www.google.com/garden",
+            description = "Garden",
+            type = "vid",
+            isFeatured = false,
+        )
+        MediaEntity(
+            id = 3L,
+            uri = "https://www.google.com/swimming_pool",
+            description = "Swimming pool",
+            type = "pic",
+            isFeatured = false,
+        )
+    },
+    isSold = false,
+    entryDate = LocalDate.of(2023, 1, 1),
+    soldDate = null,
 )
-// endregion FormDraftEntity
-
-// region FormDraftDto
-fun getTestFormDraftDto(id: Long) = FormDraftDto(
-    id = id,
-    title = "House for sale in Dummy City",
-    type = "House",
-    price = BigDecimal(1000000),
-    surface = BigDecimal(500),
-    address = "1st, Dummy Street, 12345, Dummy City",
-    isAddressValid = true,
-    rooms = 5,
-    bedrooms = 3,
-    bathrooms = 2,
-    description = "Test description",
-    amenitySchool = true,
-    amenityPark = true,
-    amenityShopping = true,
-    amenityRestaurant = false,
-    amenityConcierge = false,
-    amenityGym = false,
-    amenityTransportation = false,
-    amenityHospital = false,
-    amenityLibrary = false,
-    agentName = "John Doe",
-    entryDate = LocalDateTime.of(2023, 1, 1, 12, 0),
-    saleDate = null,
-    lastEditionDate = LocalDateTime.of(2023, 1, 1, 12, 0),
-)
-// endregion FormDraftDto
+// endregion FormDraftParams
 
 
 fun getTestAgents() = listOf(
-    RealEstateAgent.JOHN_DOE,
-    RealEstateAgent.JANE_DOE,
-    RealEstateAgent.JOHN_SMITH,
-    RealEstateAgent.JANE_SMITH,
-    RealEstateAgent.JOHN_WAYNE,
-    RealEstateAgent.JANE_WAYNE,
+    RealEstateAgent.SHIRO_ALMIRA,
+    RealEstateAgent.KURO_ALMIRA,
+    RealEstateAgent.NAECHRA_ALMIRA,
+    RealEstateAgent.LENARI_ALMIRA,
+    RealEstateAgent.SENERA_ALMIRA,
+    RealEstateAgent.TO_DEFINE,
 )
 
-fun getTestPropertyTypes() = listOf(
-    PropertyType.HOUSE,
-    PropertyType.FLAT,
-    PropertyType.DUPLEX,
-    PropertyType.PENTHOUSE,
-    PropertyType.VILLA,
-    PropertyType.MANOR,
-    PropertyType.OTHER,
+fun getTestEstateTypes() = listOf(
+    EstateType.HOUSE,
+    EstateType.FLAT,
+    EstateType.DUPLEX,
+    EstateType.PENTHOUSE,
+    EstateType.VILLA,
+    EstateType.MANOR,
+    EstateType.OTHER,
 )
 
-fun getTestPropertyTypesForFilter() = listOf(
-    PropertyType.ALL,
-    PropertyType.HOUSE,
-    PropertyType.FLAT,
-    PropertyType.DUPLEX,
-    PropertyType.PENTHOUSE,
-    PropertyType.VILLA,
-    PropertyType.MANOR,
-    PropertyType.OTHER,
+fun getTestEstateTypesForFilter() = listOf(
+    EstateType.ALL,
+    EstateType.HOUSE,
+    EstateType.FLAT,
+    EstateType.DUPLEX,
+    EstateType.PENTHOUSE,
+    EstateType.VILLA,
+    EstateType.MANOR,
+    EstateType.OTHER,
 )
 
 fun getTestAmenities() = listOf(
@@ -342,37 +327,7 @@ fun getTestAmenities() = listOf(
     AmenityType.PARK,
     AmenityType.SHOPPING_MALL,
     AmenityType.RESTAURANT,
-    AmenityType.CONCIERGE,
-    AmenityType.GYM,
     AmenityType.PUBLIC_TRANSPORTATION,
     AmenityType.HOSPITAL,
-    AmenityType.LIBRARY,
 )
-
-fun getTestPicturePreviewEntities(): List<PicturePreviewEntity> = buildList {
-    add(
-        PicturePreviewEntity(
-            id = 1L,
-            uri = "https://www.google.com/front_view",
-            description = "Front view",
-            isFeatured = true,
-        )
-    )
-    add(
-        PicturePreviewEntity(
-            id = 2L,
-            uri = "https://www.google.com/garden",
-            description = "Garden",
-            isFeatured = false,
-        )
-    )
-    add(
-        PicturePreviewEntity(
-            id = 3L,
-            uri = "https://www.google.com/swimming_pool",
-            description = "Swimming pool",
-            isFeatured = false,
-        )
-    )
-}
 

@@ -1,10 +1,10 @@
-package com.emplk.realestatemanager.data.connectivity
+package com.example.realestatemanager.data.connectivity
 
 import android.app.Application
 import android.content.BroadcastReceiver
 import android.location.LocationManager
 import app.cash.turbine.test
-import com.emplk.utils.TestCoroutineRule
+import com.example.utils.TestCoroutineRule
 import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk

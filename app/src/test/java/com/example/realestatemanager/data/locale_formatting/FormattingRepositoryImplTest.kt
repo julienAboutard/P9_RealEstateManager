@@ -1,22 +1,23 @@
-package com.emplk.realestatemanager.data.locale_formatting
+package com.example.realestatemanager.data.locale_formatting
 
-import com.emplk.realestatemanager.domain.locale_formatting.currency.CurrencyType
-import com.emplk.realestatemanager.domain.locale_formatting.surface.SurfaceUnitType
+import com.example.realestatemanager.data.formatting.FormattingRepositoryImpl
+import com.example.realestatemanager.data.formatting.type.CurrencyType
+import com.example.realestatemanager.data.formatting.type.SurfaceUnitType
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.math.BigDecimal
 import java.util.Locale
 
-class HumanReadableRepositoryImplTest {
+class FormattingRepositoryImplTest {
 
     private val locale: Locale = Locale.US
 
-    private val humanReadableRepositoryImpl = HumanReadableRepositoryImpl(locale)
+    private val formattingRepositoryImpl = FormattingRepositoryImpl(locale)
 
     @Test
     fun `getLocale() - nominal case`() {
         // When
-        val result = humanReadableRepositoryImpl.getLocale()
+        val result = formattingRepositoryImpl.getLocale()
 
         // Then
         assertEquals(locale, result)
@@ -25,7 +26,7 @@ class HumanReadableRepositoryImplTest {
     @Test
     fun `convertSquareFeetToSquareMetersRoundedHalfUp() - nominal case`() {
         // When
-        val result = humanReadableRepositoryImpl.convertSquareFeetToSquareMetersRoundedHalfUp(BigDecimal(10))
+        val result = formattingRepositoryImpl.convertSquareFeetToSquareMetersRoundedHalfUp(BigDecimal(10))
 
         // Then
         assertEquals(BigDecimal.ONE, result)
@@ -34,7 +35,7 @@ class HumanReadableRepositoryImplTest {
     @Test
     fun `convertSquareMetersToSquareFeetRoundedHalfUp() - nominal case`() {
         // When
-        val result = humanReadableRepositoryImpl.convertSquareMetersToSquareFeetRoundedHalfUp(BigDecimal(10))
+        val result = formattingRepositoryImpl.convertSquareMetersToSquareFeetRoundedHalfUp(BigDecimal(10))
 
         // Then
         assertEquals(BigDecimal(108), result)
@@ -43,25 +44,25 @@ class HumanReadableRepositoryImplTest {
     @Test
     fun `convertDollarToEuroRoundedHalfUp() - nominal case`() {
         // When
-        val result = humanReadableRepositoryImpl.convertDollarToEuroRoundedHalfUp(BigDecimal(10), BigDecimal(2))
+        val result = formattingRepositoryImpl.convertDollarToEuroRoundedHalfUp(BigDecimal(10))
 
         // Then
-        assertEquals(BigDecimal(5), result)
+        assertEquals(BigDecimal(9), result)
     }
 
     @Test
     fun `convertEuroToDollarRoundedHalfUp() - nominal case`() {
         // When
-        val result = humanReadableRepositoryImpl.convertEuroToDollarRoundedHalfUp(BigDecimal(10), BigDecimal(2))
+        val result = formattingRepositoryImpl.convertEuroToDollarRoundedHalfUp(BigDecimal(10))
 
         // Then
-        assertEquals(BigDecimal(20), result)
+        assertEquals(BigDecimal(11), result)
     }
 
     @Test
     fun `formatRoundedPriceToHumanReadable() - case Locale US`() {
         // When
-        val result = humanReadableRepositoryImpl.formatRoundedPriceToHumanReadable(BigDecimal(10))
+        val result = formattingRepositoryImpl.formatRoundedPriceToHumanReadable(BigDecimal(10))
 
         // Then
         assertEquals("$10", result)
@@ -71,7 +72,7 @@ class HumanReadableRepositoryImplTest {
     fun `formatRoundedPriceToHumanReadable() - case Locale FR`() {
         // Given
         val frenchLocale = Locale.FRANCE
-        val humanReadableRepositoryImpl = HumanReadableRepositoryImpl(frenchLocale)
+        val humanReadableRepositoryImpl = FormattingRepositoryImpl(frenchLocale)
 
         // When
         val result = humanReadableRepositoryImpl.formatRoundedPriceToHumanReadable(BigDecimal(10))
@@ -84,10 +85,10 @@ class HumanReadableRepositoryImplTest {
     fun `formatRoundedPriceToHumanReadable() - case Locale other than US or FR`() {
         // Given
         val taiwaneseLocale = Locale.TAIWAN
-        val humanReadableRepositoryImpl = HumanReadableRepositoryImpl(taiwaneseLocale)
+        val formattingRepositoryImpl = FormattingRepositoryImpl(taiwaneseLocale)
 
         // When
-        val result = humanReadableRepositoryImpl.formatRoundedPriceToHumanReadable(BigDecimal(10))
+        val result = formattingRepositoryImpl.formatRoundedPriceToHumanReadable(BigDecimal(10))
 
         // Then
         assertEquals("$10", result)
@@ -96,7 +97,7 @@ class HumanReadableRepositoryImplTest {
     @Test
     fun `getLocaleCurrencyFormatting() - case Locale US`() {
         // When
-        val result = humanReadableRepositoryImpl.getLocaleCurrencyFormatting()
+        val result = formattingRepositoryImpl.getLocaleCurrencyFormatting()
 
         // Then
         assertEquals(CurrencyType.DOLLAR, result)
@@ -106,10 +107,10 @@ class HumanReadableRepositoryImplTest {
     fun `getLocaleCurrencyFormatting() - case Locale FR`() {
         // Given
         val frenchLocale = Locale.FRANCE
-        val humanReadableRepositoryImpl = HumanReadableRepositoryImpl(frenchLocale)
+        val formattingRepositoryImpl = FormattingRepositoryImpl(frenchLocale)
 
         // When
-        val result = humanReadableRepositoryImpl.getLocaleCurrencyFormatting()
+        val result = formattingRepositoryImpl.getLocaleCurrencyFormatting()
 
         // Then
         assertEquals(CurrencyType.EURO, result)
@@ -119,10 +120,10 @@ class HumanReadableRepositoryImplTest {
     fun `getLocaleCurrencyFormatting() - case Locale other than US or FR`() {
         // Given
         val taiwaneseLocale = Locale.TAIWAN
-        val humanReadableRepositoryImpl = HumanReadableRepositoryImpl(taiwaneseLocale)
+        val formattingRepositoryImpl = FormattingRepositoryImpl(taiwaneseLocale)
 
         // When
-        val result = humanReadableRepositoryImpl.getLocaleCurrencyFormatting()
+        val result = formattingRepositoryImpl.getLocaleCurrencyFormatting()
 
         // Then
         assertEquals(CurrencyType.DOLLAR, result)
@@ -131,7 +132,7 @@ class HumanReadableRepositoryImplTest {
     @Test
     fun `getLocaleSurfaceUnitFormatting() - case Locale US`() {
         // When
-        val result = humanReadableRepositoryImpl.getLocaleSurfaceUnitFormatting()
+        val result = formattingRepositoryImpl.getLocaleSurfaceUnitFormatting()
 
         // Then
         assertEquals(SurfaceUnitType.SQUARE_FOOT, result)
@@ -141,10 +142,10 @@ class HumanReadableRepositoryImplTest {
     fun `getLocaleSurfaceUnitFormatting() - case Locale FR`() {
         // Given
         val frenchLocale = Locale.FRANCE
-        val humanReadableRepositoryImpl = HumanReadableRepositoryImpl(frenchLocale)
+        val formattingRepositoryImpl = FormattingRepositoryImpl(frenchLocale)
 
         // When
-        val result = humanReadableRepositoryImpl.getLocaleSurfaceUnitFormatting()
+        val result = formattingRepositoryImpl.getLocaleSurfaceUnitFormatting()
 
         // Then
         assertEquals(SurfaceUnitType.SQUARE_METER, result)
@@ -154,10 +155,10 @@ class HumanReadableRepositoryImplTest {
     fun `getLocaleSurfaceUnitFormatting() - case Locale other than US or FR`() {
         // Given
         val taiwaneseLocale = Locale.TAIWAN
-        val humanReadableRepositoryImpl = HumanReadableRepositoryImpl(taiwaneseLocale)
+        val formattingRepositoryImpl = FormattingRepositoryImpl(taiwaneseLocale)
 
         // When
-        val result = humanReadableRepositoryImpl.getLocaleSurfaceUnitFormatting()
+        val result = formattingRepositoryImpl.getLocaleSurfaceUnitFormatting()
 
         // Then
         assertEquals(SurfaceUnitType.SQUARE_FOOT, result)

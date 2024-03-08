@@ -41,84 +41,69 @@ class ListEstateViewModel @Inject constructor(
 ) : ViewModel() {
 
     val viewState: LiveData<List<ListEstateViewState>> = liveData {
-        /*if (latestValue == null) {
-            emit(
-                listOf(ListEstateViewState.LoadingStateEstate)
-            )
-        }*/
 
         combine(
             getEstatesAsFlowUseCase.invoke(),
             getEstatesFilterFlowUseCase.invoke()
         ) { estates: List<EstateEntity>, estatesFilter ->
-            /*if (estates.isEmpty()) {
-                emit(
-                    listOf(
-                        ListEstateViewState.EmptyState(
-                            onAddClick = EquatableCallback {
-                                setNavigationTypeUseCase.invoke(NavigationFragmentType.ADD_FRAGMENT)
+            val mapEstates = estates.map { estate ->
+                val convertedPrice = convertToEuroDependingOnLocaleUseCase.invoke(estate.price)
+                val convertedSurface = convertToSquareMeterDependingOnLocaleUseCase.invoke(estate.surface)
+                estate.copy(
+                    price = convertedPrice,
+                    surface = convertedSurface
+                )
+            }
+
+            emit(
+                mapEstates
+                    .asSequence()
+                    .filter { estate ->
+                        isEstateMatchingFiltersUseCase.invoke(
+                            estate.type,
+                            estate.location,
+                            estate.price,
+                            estate.surface,
+                            estate.medias.count(),
+                            estate.amenities,
+                            estate.entryDate,
+                            estate.saleDate,
+                            estate.saleDate != null,
+                            estatesFilter
+                        )
+                    }
+                    .sortedBy { it.saleDate != null }
+                    .map { estate ->
+                        val pictureURl = estate.medias.find { it.isFeatured }?.uri
+                        val featuredPicture = pictureURl?.let { NativePhoto.Uri(it) }
+                            ?: NativePhoto.Resource(R.drawable.baseline_add_home_24)
+                        ListEstateViewState(
+                            id = estate.id,
+                            estateType = getStringResourceForEstateTypeUseCase.invoke(estate.type),
+                            featuredPicture = featuredPicture,
+                            location = estate.location,
+                            price = formatPriceToHumanReadableUseCase.invoke(estate.price),
+                            isSold = estate.saleDate != null,
+                            surface = formatAndRoundSurfaceToHumanReadableUseCase.invoke(estate.surface),
+                            room = NativeText.Argument(R.string.detail_number_of_room_textview, estate.rooms),
+                            bedroom = NativeText.Argument(R.string.detail_number_of_bedroom_textview, estate.bedrooms),
+                            bathroom = NativeText.Argument(R.string.detail_number_of_bathroom_textview, estate.bathrooms),
+                            entryDate = estate.entryDate,
+                            amenities = estate.amenities,
+                            onClickEvent = EquatableCallback {
+                                setCurrentEstateIdUseCase.invoke(estate.id)
                             }
                         )
-                    )
-                )
-            } else {*/
-                val mapEstates = estates.map { estate ->
-                    val convertedPrice = convertToEuroDependingOnLocaleUseCase.invoke(estate.price)
-                    val convertedSurface = convertToSquareMeterDependingOnLocaleUseCase.invoke(estate.surface)
-                    estate.copy(
-                        price = convertedPrice,
-                        surface = convertedSurface
-                    )
-                }
-
-                emit(
-                    mapEstates
-                        .asSequence()
-                        .filter { estate ->
-                            isEstateMatchingFiltersUseCase.invoke(
-                                estate.type,
-                                estate.location,
-                                estate.price,
-                                estate.surface,
-                                estate.medias.count(),
-                                estate.amenities,
-                                estate.entryDate,
-                                estate.saleDate,
-                                estate.saleDate != null,
-                                estatesFilter
-                            )
-                        }
-                        .sortedBy { it.saleDate != null }
-                        .map { estate ->
-                            val pictureURl = estate.medias.find { it.isFeatured }?.uri
-                            val featuredPicture = pictureURl?.let { NativePhoto.Uri(it) }
-                                ?: NativePhoto.Resource(R.drawable.baseline_add_home_24)
-                            ListEstateViewState(
-                                id = estate.id,
-                                estateType = getStringResourceForEstateTypeUseCase.invoke(estate.type),
-                                featuredPicture = featuredPicture,
-                                location = estate.location,
-                                price = formatPriceToHumanReadableUseCase.invoke(estate.price),
-                                isSold = estate.saleDate != null,
-                                surface = formatAndRoundSurfaceToHumanReadableUseCase.invoke(estate.surface),
-                                room = NativeText.Argument(R.string.detail_number_of_room_textview, estate.rooms),
-                                bedroom = NativeText.Argument(R.string.detail_number_of_bedroom_textview, estate.bedrooms),
-                                bathroom = NativeText.Argument(R.string.detail_number_of_bathroom_textview, estate.bathrooms),
-                                entryDate = estate.entryDate,
-                                amenities = estate.amenities,
-                                onClickEvent = EquatableCallback {
-                                    setCurrentEstateIdUseCase.invoke(estate.id)
-                                }
-                            )
-                        }
-                        .toList()
-                )
-           //}
+                    }
+                    .toList()
+            )
         }.collect()
     }
+
     fun onObjectClicked(listEstateViewState: ListEstateViewState) {
         setCurrentEstateIdUseCase.invoke(listEstateViewState.id)
     }
+
     fun onAddEstateClicked() {
         setNavigationTypeUseCase.invoke(NavigationFragmentType.ADD_FRAGMENT)
         resetCurrentEstateIdUseCase.invoke()

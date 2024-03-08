@@ -1,18 +1,18 @@
-package com.emplk.realestatemanager.data.autocomplete
+package com.example.realestatemanager.data.autocomplete
 
 
 import android.util.LruCache
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
-import com.emplk.realestatemanager.data.api.GoogleApi
-import com.emplk.realestatemanager.data.autocomplete.response.AutocompleteResponse
-import com.emplk.realestatemanager.data.autocomplete.response.MatchedSubstringResponse
-import com.emplk.realestatemanager.data.autocomplete.response.PredictionResponse
-import com.emplk.realestatemanager.data.autocomplete.response.StructuredFormattingResponse
-import com.emplk.realestatemanager.data.autocomplete.response.TermResponse
-import com.emplk.realestatemanager.domain.autocomplete.PredictionWrapper
-import com.emplk.utils.TestCoroutineRule
+import com.emplk.realestatemanager.data.autocomplete.PredictionRepositoryAutocomplete
+import com.example.realestatemanager.data.api.GoogleApi
+import com.example.realestatemanager.data.autocomplete.response.AutocompleteResponse
+import com.example.realestatemanager.data.autocomplete.response.MatchedSubstringResponse
+import com.example.realestatemanager.data.autocomplete.response.PredictionResponse
+import com.example.realestatemanager.data.autocomplete.response.StructuredFormattingResponse
+import com.example.realestatemanager.data.autocomplete.response.TermResponse
+import com.example.utils.TestCoroutineRule
 import io.mockk.called
 import io.mockk.coEvery
 import io.mockk.coVerify

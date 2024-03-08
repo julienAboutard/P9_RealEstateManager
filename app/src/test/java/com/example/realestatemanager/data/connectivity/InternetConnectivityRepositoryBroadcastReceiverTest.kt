@@ -1,4 +1,4 @@
-package com.emplk.realestatemanager.data.connectivity
+package com.example.realestatemanager.data.connectivity
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -7,7 +7,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import app.cash.turbine.test
-import com.emplk.utils.TestCoroutineRule
+import com.example.utils.TestCoroutineRule
 import io.mockk.Called
 import io.mockk.every
 import io.mockk.justRun

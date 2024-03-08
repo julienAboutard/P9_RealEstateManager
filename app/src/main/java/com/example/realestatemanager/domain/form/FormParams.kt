@@ -22,7 +22,6 @@ data class FormParams(
     val selectedAmenities: List<AmenityType> = emptyList(),
     val mediasInit: List<MediaEntity> = emptyList(),
     val medias: List<MediaEntity> = emptyList(),
-    val featuredPictureId: Long? = null,
     val isSold: Boolean = false,
     val entryDate: LocalDate? = null,
     val soldDate: LocalDate? = null,

@@ -9,7 +9,7 @@ import com.example.realestatemanager.ui.estate.add.media.MediaPreviewViewState
 import com.example.realestatemanager.ui.estate.add.type.TypeViewStateItem
 import com.example.realestatemanager.ui.utils.NativeText
 
-data class AddViewState(
+data class AddOrEditViewState(
     @StringRes val type: Int?,
     val addressPredictions: List<PredictionViewState>,
     val isAddressValid: Boolean,
@@ -27,13 +27,10 @@ data class AddViewState(
     val priceCurrencyHint: NativeText,
     @DrawableRes val currencyDrawableRes: Int,
     val surfaceUnit: NativeText,
-    //val isSubmitButtonEnabled: Boolean,
     val submitButtonText: NativeText,
     val isProgressBarVisible: Boolean,
     val estateTypes: List<TypeViewStateItem>,
-    //val propertyCreationDate: NativeText?,
     val isSold: Boolean = false,
-    //val soldStatusText: NativeText?,
     val soldDate: String? = null,
     val entryDate: String? =null,
     val areEditItemsVisible: Boolean,

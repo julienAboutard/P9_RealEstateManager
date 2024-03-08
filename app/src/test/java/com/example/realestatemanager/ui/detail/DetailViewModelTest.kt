@@ -1,27 +1,28 @@
-package com.emplk.realestatemanager.ui.detail
+package com.example.realestatemanager.ui.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.emplk.realestatemanager.R
-import com.emplk.realestatemanager.domain.currency_rate.ConvertPriceDependingOnLocaleUseCase
-import com.emplk.realestatemanager.domain.currency_rate.GetLastUpdatedCurrencyRateDateUseCase
-import com.emplk.realestatemanager.domain.locale_formatting.GetLocaleUseCase
-import com.emplk.realestatemanager.domain.locale_formatting.currency.FormatPriceToHumanReadableUseCase
-import com.emplk.realestatemanager.domain.locale_formatting.surface.ConvertToSquareFeetDependingOnLocaleUseCase
-import com.emplk.realestatemanager.domain.locale_formatting.surface.FormatAndRoundSurfaceToHumanReadableUseCase
-import com.emplk.realestatemanager.domain.map_picture.GenerateMapUrlWithApiKeyUseCase
-import com.emplk.realestatemanager.domain.navigation.NavigationFragmentType
-import com.emplk.realestatemanager.domain.navigation.SetNavigationTypeUseCase
-import com.emplk.realestatemanager.domain.property.GetCurrentPropertyUseCase
-import com.emplk.realestatemanager.domain.property_type.GetStringResourceForTypeUseCase
-import com.emplk.realestatemanager.fixtures.getTestPropertyEntity
-import com.emplk.realestatemanager.ui.add.amenity.AmenityViewState
-import com.emplk.realestatemanager.ui.detail.picture_banner.PictureBannerViewState
-import com.emplk.realestatemanager.ui.utils.NativePhoto
-import com.emplk.realestatemanager.ui.utils.NativeText
-import com.emplk.utils.TestCoroutineRule
-import com.emplk.utils.observeForTesting
+import com.example.realestatemanager.fixtures.getTestEstateEntity
+import com.example.realestatemanager.R
+import com.example.realestatemanager.data.navigation.NavigationFragmentType
+import com.example.realestatemanager.domain.estate.current.GetCurrentEstateUseCase
+import com.example.realestatemanager.domain.estate.type.GetStringResourceForEstateTypeUseCase
+import com.example.realestatemanager.domain.formatting.ConvertToEuroDependingOnLocaleUseCase
+import com.example.realestatemanager.domain.formatting.ConvertToSquareMeterDependingOnLocaleUseCase
+import com.example.realestatemanager.domain.formatting.FormatAndRoundSurfaceToHumanReadableUseCase
+import com.example.realestatemanager.domain.formatting.FormatPriceToHumanReadableUseCase
+import com.example.realestatemanager.domain.map_picture.GenerateMapBaseUrlWithParamsUseCase
+import com.example.realestatemanager.domain.map_picture.GenerateMapUrlWithApiKeyUseCase
+import com.example.realestatemanager.domain.navigation.SetNavigationTypeUseCase
+import com.example.realestatemanager.ui.estate.add.amenity.AmenityViewState
+import com.example.realestatemanager.ui.estate.detail.DetailViewModel
+import com.example.realestatemanager.ui.estate.detail.DetailViewState
+import com.example.realestatemanager.ui.estate.detail.medialist.MediaViewState
+import com.example.realestatemanager.ui.utils.NativePhoto
+import com.example.realestatemanager.ui.utils.NativeText
+import com.example.utils.TestCoroutineRule
+import com.example.utils.observeForTesting
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.justRun
@@ -48,44 +49,41 @@ class DetailViewModelTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val getCurrentPropertyUseCase: GetCurrentPropertyUseCase = mockk()
+    private val getCurrentEstateUseCase: GetCurrentEstateUseCase = mockk()
     private val formatPriceToHumanReadableUseCase: FormatPriceToHumanReadableUseCase = mockk()
-    private val convertPriceDependingOnLocaleUseCase: ConvertPriceDependingOnLocaleUseCase = mockk()
-    private val getLastUpdatedCurrencyRateDateUseCase: GetLastUpdatedCurrencyRateDateUseCase = mockk()
-    private val getLocaleUseCase: GetLocaleUseCase = mockk()
+    private val convertToEuroDependingOnLocaleUseCase: ConvertToEuroDependingOnLocaleUseCase = mockk()
+    private val convertToSquareMeterDependingOnLocaleUseCase: ConvertToSquareMeterDependingOnLocaleUseCase = mockk()
     private val formatAndRoundSurfaceToHumanReadableUseCase: FormatAndRoundSurfaceToHumanReadableUseCase = mockk()
-    private val convertToSquareFeetDependingOnLocaleUseCase: ConvertToSquareFeetDependingOnLocaleUseCase = mockk()
     private val generateMapUrlWithApiKeyUseCase: GenerateMapUrlWithApiKeyUseCase = mockk()
-    private val getStringResourceForTypeUseCase: GetStringResourceForTypeUseCase = mockk()
+    private val getStringResourceForEstateTypeUseCase: GetStringResourceForEstateTypeUseCase = mockk()
     private val setNavigationTypeUseCase: SetNavigationTypeUseCase = mockk()
+    private val generateMapBaseUrlWithParamsUseCase: GenerateMapBaseUrlWithParamsUseCase = mockk()
 
     private lateinit var viewModel: DetailViewModel
 
     @Before
     fun setUp() {
         Locale.setDefault(US)
-        every { getCurrentPropertyUseCase.invoke() } returns flowOf(getTestPropertyEntity(TEST_PROPERTY_ID))
-        every { getLocaleUseCase.invoke() } returns US
-        coEvery { convertPriceDependingOnLocaleUseCase.invoke(BigDecimal(1000000)) } returns BigDecimal(1000000)
+        every { getCurrentEstateUseCase.invoke() } returns flowOf(getTestEstateEntity(TEST_PROPERTY_ID))
+        coEvery { convertToEuroDependingOnLocaleUseCase.invoke(BigDecimal(1000000)) } returns BigDecimal(1000000)
         every { formatPriceToHumanReadableUseCase.invoke(BigDecimal(1000000)) } returns "$1,000,000"
-        coEvery { getLastUpdatedCurrencyRateDateUseCase.invoke() } coAnswers { null }
         every { formatAndRoundSurfaceToHumanReadableUseCase.invoke(BigDecimal(500)) } returns "500 m²"
-        coEvery { convertToSquareFeetDependingOnLocaleUseCase.invoke(BigDecimal(500)) } returns BigDecimal(500)
-        every { getStringResourceForTypeUseCase.invoke("House") } returns R.string.type_house
+        coEvery { convertToSquareMeterDependingOnLocaleUseCase.invoke(BigDecimal(500)) } returns BigDecimal(500)
+        every { getStringResourceForEstateTypeUseCase.invoke("House") } returns R.string.type_house
         every { generateMapUrlWithApiKeyUseCase.invoke(any()) } returns "https://www.google.com/maps/123456789"
+        every { generateMapBaseUrlWithParamsUseCase.invoke(any(), any()) } returns ""
         justRun { setNavigationTypeUseCase.invoke(any()) }
 
         viewModel = DetailViewModel(
-            getCurrentPropertyUseCase = getCurrentPropertyUseCase,
-            formatPriceToHumanReadableUseCase = formatPriceToHumanReadableUseCase,
-            convertPriceDependingOnLocaleUseCase = convertPriceDependingOnLocaleUseCase,
-            getLastUpdatedCurrencyRateDateUseCase = getLastUpdatedCurrencyRateDateUseCase,
-            getLocaleUseCase = getLocaleUseCase,
-            formatAndRoundSurfaceToHumanReadableUseCase = formatAndRoundSurfaceToHumanReadableUseCase,
-            convertToSquareFeetDependingOnLocaleUseCase = convertToSquareFeetDependingOnLocaleUseCase,
-            getStringResourceForTypeUseCase = getStringResourceForTypeUseCase,
-            generateMapUrlWithApiKeyUseCase = generateMapUrlWithApiKeyUseCase,
-            setNavigationTypeUseCase = setNavigationTypeUseCase,
+            getCurrentEstateUseCase,
+            formatPriceToHumanReadableUseCase,
+            convertToEuroDependingOnLocaleUseCase,
+            convertToSquareMeterDependingOnLocaleUseCase,
+            formatAndRoundSurfaceToHumanReadableUseCase,
+            getStringResourceForEstateTypeUseCase,
+            setNavigationTypeUseCase,
+            generateMapBaseUrlWithParamsUseCase,
+            generateMapUrlWithApiKeyUseCase,
         )
     }
 
@@ -100,19 +98,6 @@ class DetailViewModelTest {
     }
 
     @Test
-    fun `loading case`() = testCoroutineRule.runTest {
-        // Given
-        every { getCurrentPropertyUseCase.invoke() } returns flowOf()
-
-        // When
-        viewModel.viewState.observeForTesting(this) {
-
-            // Then
-            assertThat(it.value).isEqualTo(testDetailViewStateLoading)
-        }
-    }
-
-    @Test
     fun `on edit clicked`() {
         // When
         viewModel.onEditClicked()
@@ -121,46 +106,30 @@ class DetailViewModelTest {
         verify(exactly = 1) { setNavigationTypeUseCase.invoke(NavigationFragmentType.EDIT_FRAGMENT) }
     }
 
-    private val testDetailViewStateLoading = DetailViewState.LoadingState
-
-    private val testDetailViewStateDetails = DetailViewState.PropertyDetail(
+    private val testDetailViewStateDetails = DetailViewState(
         id = TEST_PROPERTY_ID,
-        propertyType = R.string.type_house,
-        pictures = listOf(
-            PictureBannerViewState(
-                pictureUri = NativePhoto.Uri("https://www.google.com/front_view"),
+        estateType = R.string.type_house,
+        medias = listOf(
+            MediaViewState(
+                mediaUri = NativePhoto.Uri("https://www.google.com/front_view"),
                 description = "Front view",
-                picturePosition = 1,
-                pictureNumberText = NativeText.Arguments(
-                    R.string.banner_pic_number,
-                    listOf("1", "3")
-                ),
+                type = "pic"
 
                 ),
-            PictureBannerViewState(
-                pictureUri = NativePhoto.Uri("https://www.google.com/garden"),
+            MediaViewState(
+                mediaUri = NativePhoto.Uri("https://www.google.com/garden"),
                 description = "Garden",
-                picturePosition = 2,
-                pictureNumberText = NativeText.Arguments(
-                    R.string.banner_pic_number,
-                    listOf("2", "3")
-                ),
+                type = "vid"
 
                 ),
-            PictureBannerViewState(
-                pictureUri = NativePhoto.Uri("https://www.google.com/swimming_pool"),
+            MediaViewState(
+                mediaUri = NativePhoto.Uri("https://www.google.com/swimming_pool"),
                 description = "Swimming pool",
-                picturePosition = 3,
-                pictureNumberText = NativeText.Arguments(
-                    R.string.banner_pic_number,
-                    listOf("3", "3")
-                ),
+                type = "pic"
             ),
         ),
         mapMiniature = NativePhoto.Uri("https://www.google.com/maps/123456789"),
         price = "$1,000,000",
-        lastUpdatedCurrencyRateDate = NativeText.Resource(R.string.currency_rate_with_no_date_tv),
-        isCurrencyLastUpdatedCurrencyRateVisible = false,
         surface = "500 m²",
         rooms = NativeText.Argument(R.string.detail_number_of_room_textview, 5),
         bathrooms = NativeText.Argument(R.string.detail_number_of_bathroom_textview, 2),

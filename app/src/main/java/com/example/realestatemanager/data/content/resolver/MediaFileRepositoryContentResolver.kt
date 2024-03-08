@@ -44,8 +44,8 @@ class MediaFileRepositoryContentResolver @Inject constructor(
         withContext(coroutineDispatcherProvider.io) {
             if (File(absolutePath).exists()) {
                 File(absolutePath).delete()
-                Log.d("PictureContentResolver", "File $absolutePath deleted")
-            } else Log.d("PictureyContentResolver", "File $absolutePath does not exist")
+                Log.d("MediaContentResolver", "File $absolutePath deleted")
+            } else Log.d("MediaContentResolver", "File $absolutePath does not exist")
         }
     }
 }

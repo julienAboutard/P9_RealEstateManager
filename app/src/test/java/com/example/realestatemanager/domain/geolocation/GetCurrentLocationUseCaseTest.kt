@@ -1,11 +1,13 @@
-package com.emplk.realestatemanager.domain.geolocation
+package com.example.realestatemanager.domain.geolocation
 
 import app.cash.turbine.test
-import com.emplk.realestatemanager.R
-import com.emplk.realestatemanager.domain.connectivity.GpsConnectivityRepository
-import com.emplk.realestatemanager.domain.permission.HasLocationPermissionFlowUseCase
-import com.emplk.realestatemanager.ui.utils.NativeText
-import com.emplk.utils.TestCoroutineRule
+import com.example.realestatemanager.R
+import com.example.realestatemanager.data.connectivity.GpsConnectivityRepository
+import com.example.realestatemanager.data.geolocation.GeolocationRepository
+import com.example.realestatemanager.data.geolocation.GeolocationState
+import com.example.realestatemanager.domain.permission.HasLocationPermissionFlowUseCase
+import com.example.realestatemanager.ui.utils.NativeText
+import com.example.utils.TestCoroutineRule
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf

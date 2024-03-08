@@ -1,9 +1,10 @@
-package com.emplk.realestatemanager.domain.autocomplete
+package com.example.realestatemanager.domain.autocomplete
 
 import app.cash.turbine.test
-import com.emplk.realestatemanager.data.property_draft.address.PredictionAddressState
-import com.emplk.realestatemanager.domain.property_draft.address.PredictionAddressStateRepository
-import com.emplk.utils.TestCoroutineRule
+import com.example.realestatemanager.data.autocomplete.PredictionWrapper
+import com.example.realestatemanager.data.autocomplete.address.PredictionAddressState
+import com.example.realestatemanager.data.autocomplete.address.PredictionAddressStateRepository
+import com.example.utils.TestCoroutineRule
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.confirmVerified

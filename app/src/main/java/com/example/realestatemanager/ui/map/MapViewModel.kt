@@ -40,7 +40,7 @@ class MapViewModel @Inject constructor(
                 MarkerViewState(
                     userCurrentLocation = null,
                     fallbackLocationGoogleHq = FALLBACK_LOCATION,
-                    propertyMarkers = emptyList()
+                    estateMarkers = emptyList()
                 )
             )
         }
@@ -63,7 +63,7 @@ class MapViewModel @Inject constructor(
 
                 },
                 fallbackLocationGoogleHq = FALLBACK_LOCATION,
-                propertyMarkers = if (propertiesLatLong.isEmpty()) emptyList() else
+                estateMarkers = if (propertiesLatLong.isEmpty()) emptyList() else
                     propertiesLatLong.filter { it.latitude != null && it.longitude !=null }.map { propertyLatLong ->
                         PropertyMarkerViewState(
                             propertyId = propertyLatLong.id,

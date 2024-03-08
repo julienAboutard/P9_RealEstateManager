@@ -50,7 +50,6 @@ class FilterPropertiesViewModel @Inject constructor(
     private val getEstateTypeUseCase: GetEstateTypeUseCase,
     private val getAmenityTypeUseCase: GetAmenityTypeUseCase,
     private val setEstatesFilterUseCase: SetEstatesFilterUseCase,
-    private val optimizeValuesForFilteringUseCase: OptimizeValuesForFilteringUseCase,
     private val setNavigationTypeUseCase: SetNavigationTypeUseCase,
     private val getNavigationTypeUseCase: GetNavigationTypeUseCase,
     private val setIsFilteredUseCase: SetIsFilteredUseCase,
@@ -88,14 +87,6 @@ class FilterPropertiesViewModel @Inject constructor(
                 else filterParamsMutableStateFlow.value.minMedia.toString(),
                 researchDate = filterParamsMutableStateFlow.value.researchDate,
                 availableForSale = filterParamsMutableStateFlow.value.saleState,
-                isFilterButtonEnabled = filterParamsMutableStateFlow.value.estateType != null ||
-                filterParamsMutableStateFlow.value.minPrice != BigDecimal.ZERO ||
-                filterParamsMutableStateFlow.value.maxPrice != BigDecimal.ZERO ||
-                filterParamsMutableStateFlow.value.minSurface != BigDecimal.ZERO ||
-                filterParamsMutableStateFlow.value.maxSurface != BigDecimal.ZERO ||
-                filterParamsMutableStateFlow.value.selectedAmenities.isNotEmpty() ||
-                filterParamsMutableStateFlow.value.researchDate != null ||
-                filterParamsMutableStateFlow.value.saleState != null,
                 onCancelClicked = EquatableCallback {
                     filterParamsMutableStateFlow.update { FilterParams() }
                     onFilterClickMutableSharedFlow.tryEmit(Unit)
@@ -188,7 +179,6 @@ class FilterPropertiesViewModel @Inject constructor(
     }
 
     fun onAddressChanged(address: String?) {
-        Log.d("controle", "onAddressChanged: $address")
         if (address.isNullOrBlank()) {
             filterParamsMutableStateFlow.update {
                 it.copy(address = "")

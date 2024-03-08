@@ -121,7 +121,6 @@ class FilterEstatesFragment : DialogFragment(R.layout.filter_estates_fragment) {
 
             setDatePicker(binding)
 
-            //binding.fragmentFilterFilterBtn.isEnabled = viewState.isFilterButtonEnabled
             binding.fragmentFilterFilterBtn.setOnClickListener {
                 viewState.onFilterClicked()
                 viewLifecycleOwner.lifecycleScope.launch {

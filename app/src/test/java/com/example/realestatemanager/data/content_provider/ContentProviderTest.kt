@@ -1,13 +1,13 @@
-package com.emplk.realestatemanager.data.content_provider
+package com.example.realestatemanager.data.content_provider
 
 import android.content.ContentResolver
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import androidx.test.core.app.ApplicationProvider
-import com.emplk.realestatemanager.data.property.PropertyDao
-import com.emplk.realestatemanager.data.property.location.LocationDao
-import com.emplk.realestatemanager.data.property.picture.PictureDao
+import com.example.realestatemanager.data.content.provider.ContentProvider
+import com.example.realestatemanager.data.estate.room.EstateDao
+import com.example.realestatemanager.data.media.room.MediaDao
 import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
@@ -23,11 +23,10 @@ import org.robolectric.annotation.Config
 @Config(manifest = Config.NONE)
 class ContentProviderTest {
     private lateinit var contentProvider: ContentProvider
-    private lateinit var propertyDaoTest: PropertyDao
-    private lateinit var pictureDaoTest: PictureDao
-    private lateinit var locationDaoTest: LocationDao
+    private lateinit var estateDaoTest: EstateDao
+    private lateinit var mediaDaoTest: MediaDao
     private lateinit var contentResolver: ContentResolver
-    private val testAuthority = "com.emplk.realestatemanager.data.content_provider.ContentProvider"
+    private val testAuthority = "com.example.realestatemanager.data.content_provider.ContentProvider"
     private lateinit var context: Context
 
     @Before
@@ -35,20 +34,18 @@ class ContentProviderTest {
         context = ApplicationProvider.getApplicationContext()
         contentResolver = mockk()
 
-        propertyDaoTest = mockk()
-        pictureDaoTest = mockk()
-        locationDaoTest = mockk()
+        estateDaoTest = mockk()
+        mediaDaoTest = mockk()
 
         contentProvider = ContentProvider().apply {
-            propertyDao = propertyDaoTest
-            pictureDao = pictureDaoTest
-            locationDao = locationDaoTest
+            estateDao = estateDaoTest
+            mediaDao = mediaDaoTest
         }
 
-        val fakePropertyCursor: Cursor = mockk()
-        every { propertyDaoTest.getAllPropertiesWithCursor() } returns fakePropertyCursor
+        val fakeEstateCursor: Cursor = mockk()
+        every { estateDaoTest.getAllEstatesWithCursor() } returns fakeEstateCursor
         justRun {
-            fakePropertyCursor.setNotificationUri(any(), any())
+            fakeEstateCursor.setNotificationUri(any(), any())
         }
     }
 
@@ -62,14 +59,14 @@ class ContentProviderTest {
                 any()
             )
         }
-        every { propertyDaoTest.getAllPropertiesWithCursor() } returns testCursor
+        every { estateDaoTest.getAllEstatesWithCursor() } returns testCursor
 
         // When
-        val uri = Uri.parse("content://$testAuthority/properties")
+        val uri = Uri.parse("content://$testAuthority/estates")
         val resultCursor = contentProvider.query(uri, null, null, null, null)
 
         // Then
-        verify(exactly = 1) { propertyDaoTest.getAllPropertiesWithCursor() }
+        verify(exactly = 1) { estateDaoTest.getAllEstatesWithCursor() }
         verify(exactly = 1) { resultCursor.setNotificationUri(any(), any()) }
 
         assertEquals(testCursor, resultCursor)

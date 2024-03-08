@@ -3,7 +3,6 @@ package com.example.realestatemanager.ui.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -11,10 +10,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.commit
-import androidx.fragment.app.commitNow
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -22,12 +17,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.example.realestatemanager.R
-import com.example.realestatemanager.data.navigation.NavigationFragmentType
 import com.example.realestatemanager.databinding.ActivityMainBinding
-import com.example.realestatemanager.ui.estate.add.AddFragment
-import com.example.realestatemanager.ui.filter.FilterEstatesFragment
-import com.example.realestatemanager.ui.slidepane.SlidePaneFragment
-import com.example.realestatemanager.ui.utils.Event.Companion.observeEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

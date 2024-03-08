@@ -36,15 +36,15 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
-class AddFragment : Fragment(R.layout.fragment_estate_add) {
+class AddOrEditFragment : Fragment(R.layout.fragment_estate_add) {
 
     companion object {
-        fun newInstance() = AddFragment()
+        fun newInstance() = AddOrEditFragment()
 
         private var currentPhotoUri: Uri? = null
     }
 
-    private val viewModel by viewModels<AddViewModel>()
+    private val viewModel by viewModels<AddOrEditViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,23 +91,23 @@ class AddFragment : Fragment(R.layout.fragment_estate_add) {
 
         viewModel.viewEventLiveData.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
-                is AddEvent.Loading -> {
+                is AddOrEditEvent.Loading -> {
                     binding.root.visibility = View.GONE
                     binding.formProgressBar.visibility = View.VISIBLE
                 }
 
-                is AddEvent.Form -> {
+                is AddOrEditEvent.Form -> {
                     binding.root.visibility = View.VISIBLE
                     binding.formProgressBar.visibility = View.GONE
                 }
 
-                is AddEvent.Toast -> Toast.makeText(
+                is AddOrEditEvent.Toast -> Toast.makeText(
                     requireContext(),
                     event.text.toCharSequence(requireContext()),
                     Toast.LENGTH_SHORT
                 ).show()
 
-                is AddEvent.Error -> Toast.makeText(
+                is AddOrEditEvent.Error -> Toast.makeText(
                     requireContext(),
                     event.errorMessage,
                     Toast.LENGTH_SHORT

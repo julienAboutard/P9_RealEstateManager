@@ -18,7 +18,8 @@ import com.example.realestatemanager.domain.autocomplete.address.SetSelectedAddr
 import com.example.realestatemanager.domain.autocomplete.address.UpdateOnAddressClickedUseCase
 import com.example.realestatemanager.domain.connectivity.IsInternetEnabledFlowUseCase
 import com.example.realestatemanager.domain.content_resolver.SaveFileToLocalAppFilesUseCase
-import com.example.realestatemanager.domain.estate.AddEstateUseCase
+import com.example.realestatemanager.domain.estate.AddOrEditEstateUseCase
+import com.example.realestatemanager.domain.estate.GetEstateByIdUseCase
 import com.example.realestatemanager.domain.estate.current.GetCurrentEstateIdFlowUseCase
 import com.example.realestatemanager.domain.estate.type.GetEstateTypeUseCase
 import com.example.realestatemanager.domain.form.FormParams
@@ -57,18 +58,18 @@ import java.time.format.FormatStyle
 import javax.inject.Inject
 
 @HiltViewModel
-class AddViewModel @Inject constructor(
+class AddOrEditViewModel @Inject constructor(
     private val getRealEstateAgents: GetRealEstateAgentsUseCase,
     private val getCurrencyTypeUseCase: GetCurrencyTypeUseCase,
     private val getEstateTypeUseCase: GetEstateTypeUseCase,
     private val getAmenityTypeUseCase: GetAmenityTypeUseCase,
     private val getSurfaceUnitUseCase: GetSurfaceUnitUseCase,
     private val isInternetEnabledFlowUseCase: IsInternetEnabledFlowUseCase,
-    private val addEstateUseCase: AddEstateUseCase,
+    private val addOrEditEstateUseCase: AddOrEditEstateUseCase,
     private val saveFileToLocalAppFilesUseCase: SaveFileToLocalAppFilesUseCase,
     private val getNavigationTypeUseCase: GetNavigationTypeUseCase,
     private val getCurrentEstateIdFlowUseCase: GetCurrentEstateIdFlowUseCase,
-    private val estateRepository: EstateRepository,
+    private val getEstateByIdUseCase: GetEstateByIdUseCase,
     private val setSelectedAddressStateUseCase: SetSelectedAddressStateUseCase,
     private val updateOnAddressClickedUseCase: UpdateOnAddressClickedUseCase,
     private val setHasAddressFocusUseCase: SetHasAddressFocusUseCase,
@@ -84,17 +85,17 @@ class AddViewModel @Inject constructor(
     private val onSubmitButtonClickedMutableSharedFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
     private val isLoadingMutableStateFlow = MutableStateFlow(true)
 
-    val viewEventLiveData: LiveData<Event<AddEvent>> = liveData {
+    val viewEventLiveData: LiveData<Event<AddOrEditEvent>> = liveData {
         coroutineScope {
             launch {
                 isLoadingMutableStateFlow.collect { isLoading ->
                     if (isLoading) emit(
                         Event(
-                            AddEvent.Loading
+                            AddOrEditEvent.Loading
                         )
                     ) else emit(
                         Event(
-                            AddEvent.Form
+                            AddOrEditEvent.Form
                         )
                     )
                 }
@@ -104,7 +105,7 @@ class AddViewModel @Inject constructor(
                 onSubmitButtonClickedMutableSharedFlow.collectLatest {
                     emit(
                         Event(
-                            addEstateUseCase.invoke(formMutableStateFlow.value)
+                            addOrEditEstateUseCase.invoke(formMutableStateFlow.value)
                         )
                     )
                 }
@@ -112,16 +113,16 @@ class AddViewModel @Inject constructor(
         }
     }
 
-    val viewStateLiveData: LiveData<AddViewState> = liveData {
+    val viewStateLiveData: LiveData<AddOrEditViewState> = liveData {
         coroutineScope {
             if (latestValue == null) {
                 isLoadingMutableStateFlow.tryEmit(true)
                 delay(400)
             }
 
-            val testId = getCurrentEstateIdFlowUseCase.invoke().firstOrNull()
-            if (testId != null) {
-                val estate = estateRepository.getEstateById(testId)
+            val estateId = getCurrentEstateIdFlowUseCase.invoke().firstOrNull()
+            if (estateId != null) {
+                val estate = getEstateByIdUseCase.invoke(estateId)
                 formMutableStateFlow.update {
                     it.copy(
                         id = estate.id,
@@ -161,7 +162,7 @@ class AddViewModel @Inject constructor(
                     val estateTypes = getEstateTypeUseCase.invoke()
                     val agents = getRealEstateAgents.invoke()
 
-                    AddViewState(
+                    AddOrEditViewState(
                         type = estateTypes.find { it.databaseName == form.type }?.stringRes,
                         address = form.address,
                         price = if (form.price == BigDecimal.ZERO) "" else form.price.toString(),

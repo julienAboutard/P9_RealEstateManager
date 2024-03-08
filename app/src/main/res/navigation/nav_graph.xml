@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/estate_add"
-        android:name="com.example.realestatemanager.ui.estate.add.AddFragment"
+        android:name="com.example.realestatemanager.ui.estate.add.AddOrEditFragment"
         tools:layout="@layout/fragment_estate_add">
 
         <action
