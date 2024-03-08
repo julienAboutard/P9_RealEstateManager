@@ -142,7 +142,7 @@ class DetailViewModelTest {
             add(AmenityViewState.AmenityItem(R.string.amenity_shopping_mall, R.drawable.baseline_shopping_cart_24))
         },
         entryDate = NativeText.Argument(R.string.detail_entry_date_tv, "1/1/23"),
-        agentName = NativeText.Argument(R.string.detail_manager_agent_name, "John Doe"),
+        agentName = NativeText.Argument(R.string.detail_manager_agent_name, "Shiro Almira"),
         isSold = false,
         saleDate = null,
     )
