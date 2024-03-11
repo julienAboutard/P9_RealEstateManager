@@ -1,15 +1,20 @@
 package com.example.realestatemanager.ui.main
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -25,24 +30,22 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    companion object {
-        fun navigate(context: Context, fragmentTag: String): Intent {
-            val intent = Intent(context, MainActivity::class.java)
-            intent.putExtra(KEY_FRAGMENT_TAG, fragmentTag)
-            context.startActivity(intent)
-            return intent
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            viewModel.hasPermissionBeenGranted(
+                permissions[android.Manifest.permission.ACCESS_FINE_LOCATION] == true ||
+                        permissions[android.Manifest.permission.ACCESS_COARSE_LOCATION] == true
+            )
         }
 
-        private const val KEY_FRAGMENT_TAG = "KEY_FRAGMENT_TAG"
-        private const val SLIDING_FRAGMENT_TAG = "SLIDING_FRAGMENT_TAG"
-        private const val FILTER_FRAGMENT_TAG = "FILTER_FRAGMENT_TAG"
-        private const val ADD_FRAGMENT_TAG = "ADD_FRAGMENT_TAG"
-    }
 
     private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requestPermissions()
+
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -126,5 +129,53 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.activity_main_container_nav_host)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    @SuppressLint("NewApi")
+    private fun requestPermissions() {
+        when {
+            // Permissions already granted
+            ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED ||
+                    ContextCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED ->
+                viewModel.hasPermissionBeenGranted(true)
+
+            // Permissions have been denied once - show rationale
+            shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION) ||
+                    shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_COARSE_LOCATION) ->
+                showRequestPermissionRationale()
+
+            // Request permission
+            else ->
+                requestPermissionLauncher.launch(
+                    arrayOf(
+                        android.Manifest.permission.ACCESS_FINE_LOCATION,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
+                )
+        }
+    }
+
+    private fun showRequestPermissionRationale() {
+        // rationale should be shown only once
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.permission_rationale_title))
+            .setMessage(getString(R.string.permission_rationale_message))
+            .setPositiveButton(getString(R.string.permission_rationale_ok_btn)) { dialogInterface, _ ->
+                // re-request permission
+                requestPermissionLauncher.launch(
+                    arrayOf(
+                        android.Manifest.permission.ACCESS_FINE_LOCATION,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
+                )
+                dialogInterface.dismiss()
+            }
+            .show()
     }
 }

@@ -11,6 +11,7 @@ import com.example.realestatemanager.domain.filter.ResetEstatesFilterUseCase
 import com.example.realestatemanager.domain.filter.SetIsFilteredUseCase
 import com.example.realestatemanager.domain.navigation.GetNavigationTypeUseCase
 import com.example.realestatemanager.domain.navigation.SetNavigationTypeUseCase
+import com.example.realestatemanager.domain.permission.SetLocationPermissionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
@@ -23,6 +24,7 @@ class MainViewModel @Inject constructor(
     private val resetEstatesFilterUseCase: ResetEstatesFilterUseCase,
     private val getIsFilteredUseCase: GetIsFilteredUseCase,
     private val setIsFilteredUseCase: SetIsFilteredUseCase,
+    private val setLocationPermissionUseCase: SetLocationPermissionUseCase,
     coroutineDispatcherProvider: CoroutineDispatcherProvider,
 ) : ViewModel() {
 
@@ -41,13 +43,34 @@ class MainViewModel @Inject constructor(
                         )
                     )
 
-                NavigationFragmentType.FILTER_DIALOG_FRAGMENT,
+                NavigationFragmentType.ADD_FRAGMENT ->
+                    emit(
+                        MainViewState(
+                            isFilterAppBarButtonVisible = false,
+                            isResetFilterAppBarButtonVisible = false,
+                            isMapAppBarButtonVisible = false,
+                        )
+                    )
 
-                NavigationFragmentType.ADD_FRAGMENT,
+                NavigationFragmentType.EDIT_FRAGMENT ->
+                    emit(
+                        MainViewState(
+                            isFilterAppBarButtonVisible = false,
+                            isResetFilterAppBarButtonVisible = false,
+                            isMapAppBarButtonVisible = false,
+                        )
+                    )
 
-                NavigationFragmentType.EDIT_FRAGMENT,
+                NavigationFragmentType.MAP_FRAGMENT ->
+                    emit(
+                        MainViewState(
+                            isFilterAppBarButtonVisible = false,
+                            isResetFilterAppBarButtonVisible = false,
+                            isMapAppBarButtonVisible = false,
+                        )
+                    )
 
-                NavigationFragmentType.MAP_FRAGMENT -> Unit
+                NavigationFragmentType.FILTER_DIALOG_FRAGMENT -> Unit
             }
         }.collect()
     }
@@ -60,6 +83,10 @@ class MainViewModel @Inject constructor(
 
     fun onMapClicked() {
         setNavigationTypeUseCase.invoke(NavigationFragmentType.MAP_FRAGMENT)
+    }
+
+    fun hasPermissionBeenGranted(isPermissionGranted: Boolean?) {
+        setLocationPermissionUseCase.invoke(isPermissionGranted ?: false)
     }
 
     fun onBackClicked() {

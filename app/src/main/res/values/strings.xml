@@ -23,24 +23,23 @@
     <string name="detail_number_of_bathroom_textview">%s bathrooms</string>
     <string name="detail_amenities_flexbox_title_tv">Nearby amenities</string>
     <string name="detail_sold_date_tv">SOLD DATE: %s</string>
-    <string name="detail_location_tv">%s</string>
+    <string name="detail_location_tv" translatable="false">%s</string>
     <string name="detail_entry_date_tv">Entry date: %s</string>
 
     <string name="price_hint">Price (%s)</string>
     <string name="surface_area_unit_in_n">Area (%s)</string>
-    <string name="rooms_nb_short_version">%s RM</string>
-    <string name="bathrooms_nb_short_version">%s BA</string>
-    <string name="bedrooms_nb_short_version">%s BR</string>
+    <string name="rooms_nb_short_version" translatable="false">%s RM</string>
+    <string name="bathrooms_nb_short_version" translatable="false">%s BA</string>
+    <string name="bedrooms_nb_short_version" translatable="false">%s BR</string>
     <string name="form_create_button">Create estate</string>
     <string name="form_update_button">Update estate</string>
     <string name="form_creation_date_tv">Estate created on: %s</string>
 
-    <string name="no_internet_connection_draft_saved">Draft saved, please check your connection and try again</string>
     <string name="form_successfully_created_message">Estate successfully created!</string>
     <string name="form_successfully_updated_message">Estate successfully updated!</string>
     <string name="form_generic_error_message">Oops, an error occurred, try again later!</string>
 
-    <string name="detail_media_tv">Medias</string>
+    <string name="detail_media_tv" translatable="false">Medias</string>
     <string name="detail_amenities_tv">Amenities</string>
 
     <string name="estate_item_sold">SOLD</string>
@@ -48,11 +47,11 @@
     <string name="all_btn">All</string>
     <string name="for_sale_btn">For Sale</string>
     <string name="sold_btn">Sold</string>
-    <string name="reset_btn">Reset</string>
+    <string name="reset_btn" translatable="false">Reset</string>
     <string name="cancel_btn">Cancel</string>
     <string name="filter_btn">Filter</string>
 
-    <string name="type_tittle">Type</string>
+    <string name="type_tittle" translatable="false">Type</string>
     <string name="price_range">Price range</string>
     <string name="surface_range">Surface Range</string>
     <string name="sale_state">Available for sale</string>
@@ -70,7 +69,7 @@
     <string name="room_hint">Rooms</string>
     <string name="bedroom_hint">Bedrooms</string>
     <string name="bathroom_hint">Bathroom</string>
-    <string name="description_hint">Description</string>
+    <string name="description_hint" translatable="false">Description</string>
     <string name="media_title_hint">Title</string>
     <string name="filter_address_hint">Zone Filter</string>
     <string name="address_hint">Address</string>
