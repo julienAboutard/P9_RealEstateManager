@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.realestatemanager.data.geolocation.GeolocationState
+import com.example.realestatemanager.data.navigation.NavigationFragmentType
 import com.example.realestatemanager.domain.estate.GetEstatesAsFlowUseCase
 import com.example.realestatemanager.domain.geolocation.GetCurrentLocationUseCase
 import com.example.realestatemanager.domain.estate.current.SetCurrentEstateIdUseCase
+import com.example.realestatemanager.domain.navigation.SetNavigationTypeUseCase
 import com.example.realestatemanager.domain.permission.SetLocationPermissionUseCase
 import com.example.realestatemanager.ui.utils.EquatableCallbackWithParam
 import com.example.realestatemanager.ui.utils.Event
@@ -23,6 +25,7 @@ class MapViewModel @Inject constructor(
     private val setCurrentEstateIdUseCase: SetCurrentEstateIdUseCase,
     private val getCurrentLocationUseCase: GetCurrentLocationUseCase,
     private val setLocationPermissionUseCase: SetLocationPermissionUseCase,
+    private val setNavigationTypeUseCase: SetNavigationTypeUseCase,
 ) : ViewModel() {
 
     companion object {
@@ -91,4 +94,6 @@ class MapViewModel @Inject constructor(
     fun hasPermissionBeenGranted(isPermissionGranted: Boolean?) {
         setLocationPermissionUseCase.invoke(isPermissionGranted ?: false)
     }
+
+    fun setNavFragment() = setNavigationTypeUseCase.invoke(NavigationFragmentType.SLIDING_FRAGMENT)
 }

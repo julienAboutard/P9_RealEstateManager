@@ -28,6 +28,7 @@ import com.example.realestatemanager.domain.formatting.ConvertToUsdDependingOnLo
 import com.example.realestatemanager.domain.formatting.GetCurrencyTypeUseCase
 import com.example.realestatemanager.domain.formatting.GetSurfaceUnitUseCase
 import com.example.realestatemanager.domain.navigation.GetNavigationTypeUseCase
+import com.example.realestatemanager.domain.navigation.SetNavigationTypeUseCase
 import com.example.realestatemanager.fixtures.getTestEstateEntity
 import com.example.realestatemanager.fixtures.getTestMediaEntities
 import com.example.realestatemanager.ui.estate.add.AddOrEditEvent
@@ -85,6 +86,7 @@ class AddOrEditViewModelTest {
     private val addOrEditEstateUseCase: AddOrEditEstateUseCase = mockk()
     private val saveFileToLocalAppFilesUseCase: SaveFileToLocalAppFilesUseCase = mockk()
     private val getNavigationTypeUseCase: GetNavigationTypeUseCase = mockk()
+    private val setNavigationTypeUseCase: SetNavigationTypeUseCase = mockk()
     private val getCurrentEstateIdFlowUseCase: GetCurrentEstateIdFlowUseCase = mockk()
     private val getEstateByIdUseCase: GetEstateByIdUseCase = mockk()
     private val setSelectedAddressStateUseCase: SetSelectedAddressStateUseCase = mockk()
@@ -120,7 +122,7 @@ class AddOrEditViewModelTest {
         every { getAmenityTypeUseCase.invoke() } returns getTestAmenities()
         coEvery { isInternetEnabledFlowUseCase.invoke() } returns flowOf(true)
         coEvery { getEstateByIdUseCase.invoke(any()) } returns getTestEstateEntity(1L)
-
+        justRun { setNavigationTypeUseCase.invoke(any()) }
 
         viewModel = AddOrEditViewModel(
             getRealEstateAgentsUseCase,
@@ -132,6 +134,7 @@ class AddOrEditViewModelTest {
             addOrEditEstateUseCase,
             saveFileToLocalAppFilesUseCase,
             getNavigationTypeUseCase,
+            setNavigationTypeUseCase,
             getCurrentEstateIdFlowUseCase,
             getEstateByIdUseCase,
             setSelectedAddressStateUseCase,

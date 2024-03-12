@@ -126,6 +126,11 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.setNavFragment()
+    }
+
     private fun requestPermissions() {
         when {
             // Permissions already granted

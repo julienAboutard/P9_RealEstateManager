@@ -8,6 +8,7 @@ import com.example.realestatemanager.data.geolocation.GeolocationState
 import com.example.realestatemanager.domain.estate.GetEstatesAsFlowUseCase
 import com.example.realestatemanager.domain.estate.current.SetCurrentEstateIdUseCase
 import com.example.realestatemanager.domain.geolocation.GetCurrentLocationUseCase
+import com.example.realestatemanager.domain.navigation.SetNavigationTypeUseCase
 import com.example.realestatemanager.domain.permission.SetLocationPermissionUseCase
 import com.example.realestatemanager.fixtures.getTestEstateEntity
 import com.example.realestatemanager.ui.utils.EquatableCallbackWithParam
@@ -46,6 +47,7 @@ class MapViewModelTest {
     private val setCurrentEstateIdUseCase: SetCurrentEstateIdUseCase = mockk()
     private val getCurrentLocationUseCase: GetCurrentLocationUseCase = mockk()
     private val setLocationPermissionUseCase: SetLocationPermissionUseCase = mockk()
+    private val setNavigationTypeUseCase: SetNavigationTypeUseCase = mockk()
 
 
     private lateinit var viewModel: MapViewModel
@@ -59,11 +61,14 @@ class MapViewModelTest {
                 TEST_USER_LOCATION.latitude, TEST_USER_LOCATION.longitude
             )
         )
+        justRun { setNavigationTypeUseCase.invoke(any()) }
+
         viewModel = MapViewModel(
             getEstatesAsFlowUseCase,
             setCurrentEstateIdUseCase,
             getCurrentLocationUseCase,
             setLocationPermissionUseCase,
+            setNavigationTypeUseCase,
         )
     }
 

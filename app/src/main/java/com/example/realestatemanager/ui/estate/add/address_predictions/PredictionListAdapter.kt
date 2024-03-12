@@ -23,14 +23,12 @@ class PredictionListAdapter :
         holder.bind(getItem(position))
     }
 
-    //override fun getItemViewType(position: Int): Int = getItem(position).type.ordinal
-
     class PredictionViewHolder(private var binding: EstateAddressPredictionItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: PredictionViewState) {
 
-            binding.predictionItemCardview.setOnClickListener {
+            binding.root.setOnClickListener {
                 item.onClickEvent.invoke(item.address)
             }
             binding.formSuggestionTextView.text = item.address

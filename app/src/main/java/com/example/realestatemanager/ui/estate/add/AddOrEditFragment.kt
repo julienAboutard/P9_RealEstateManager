@@ -298,6 +298,11 @@ class AddOrEditFragment : Fragment(R.layout.fragment_estate_add) {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.setNavFragment()
+    }
+
     private fun initTextWatchers(binding: FragmentEstateAddBinding) {
 
         binding.estateAddPriceTextInputEditText.doAfterTextChanged {

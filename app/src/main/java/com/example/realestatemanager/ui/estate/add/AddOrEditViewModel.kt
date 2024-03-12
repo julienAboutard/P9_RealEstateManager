@@ -30,6 +30,7 @@ import com.example.realestatemanager.domain.formatting.ConvertToUsdDependingOnLo
 import com.example.realestatemanager.domain.formatting.GetCurrencyTypeUseCase
 import com.example.realestatemanager.domain.formatting.GetSurfaceUnitUseCase
 import com.example.realestatemanager.domain.navigation.GetNavigationTypeUseCase
+import com.example.realestatemanager.domain.navigation.SetNavigationTypeUseCase
 import com.example.realestatemanager.ui.estate.add.address_predictions.PredictionViewState
 import com.example.realestatemanager.ui.estate.add.agent.AgentViewStateItem
 import com.example.realestatemanager.ui.estate.add.amenity.AmenityViewState
@@ -68,6 +69,7 @@ class AddOrEditViewModel @Inject constructor(
     private val addOrEditEstateUseCase: AddOrEditEstateUseCase,
     private val saveFileToLocalAppFilesUseCase: SaveFileToLocalAppFilesUseCase,
     private val getNavigationTypeUseCase: GetNavigationTypeUseCase,
+    private val setNavigationTypeUseCase: SetNavigationTypeUseCase,
     private val getCurrentEstateIdFlowUseCase: GetCurrentEstateIdFlowUseCase,
     private val getEstateByIdUseCase: GetEstateByIdUseCase,
     private val setSelectedAddressStateUseCase: SetSelectedAddressStateUseCase,
@@ -493,4 +495,6 @@ class AddOrEditViewModel @Inject constructor(
     }
 
     suspend fun getCurrentNavigationFragment(): NavigationFragmentType = getNavigationTypeUseCase.invoke().first()
+
+    fun setNavFragment() = setNavigationTypeUseCase.invoke(NavigationFragmentType.SLIDING_FRAGMENT)
 }
